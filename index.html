@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ngeno - Data Analyst Portfolio</title>
+    <title>STEM Writers Kenya - Data Analytics for Businesses, Students, Researchers</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
     <style>
@@ -23,7 +23,7 @@
         .project-card:hover {
             transform: translateY(-5px);
         }
-        canvas {
+        canvas, .project-img {
             max-width: 100%;
             height: auto !important;
         }
@@ -75,6 +75,52 @@
                 min-height: auto;
             }
         }
+
+        /* Tech icons styling */
+        .tech-icon {
+            width: 32px;
+            height: 32px;
+            margin: 0 8px;
+            transition: transform 0.3s ease;
+        }
+        .tech-icon:hover {
+            transform: scale(1.2);
+        }
+        @media (max-width: 640px) {
+            .tech-icon {
+                width: 24px;
+                height: 24px;
+                margin: 0 4px;
+            }
+        }
+
+        /* Ultra-small screens */
+        @media (max-width: 320px) {
+            .hero-title {
+                font-size: 1.75rem;
+            }
+            .hero-subtitle {
+                font-size: 0.875rem;
+            }
+            .service-card, .project-card, #policies ul, #contact label, #contact p {
+                font-size: 0.75rem; /* text-xs */
+            }
+            .hamburger span {
+                width: 30px;
+                height: 4px;
+                margin: 6px 0;
+            }
+            #contact .space-y-2 > label {
+                font-size: 0.875rem; /* text-sm */
+            }
+        }
+
+        /* Ultra-wide screens */
+        @media (min-width: 1440px) {
+            .max-w-7xl, .max-w-6xl, .max-w-4xl {
+                max-width: 1280px; /* Cap container width */
+            }
+        }
     </style>
 </head>
 <body class="bg-gray-100">
@@ -83,15 +129,15 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
                 <div class="flex items-center">
-                    <span class="text-xl sm:text-2xl font-bold text-blue-600">Ngeno</span>
+                    <span class="text-xl sm:text-2xl font-bold text-blue-600">STEM WRITERS KENYA</span>
                 </div>
                 
                 <!-- Desktop Navigation -->
                 <div class="hidden md:flex items-center space-x-2 lg:space-x-4">
                     <a href="#home" class="text-gray-700 hover:text-blue-600 px-2 lg:px-3 py-2 rounded-md text-sm font-medium">Home</a>
-                    <a href="#about" class="text-gray-700 hover:text-blue-600 px-2 lg:px-3 py-2 rounded-md text-sm font-medium">About</a>
                     <a href="#services" class="text-gray-700 hover:text-blue-600 px-2 lg:px-3 py-2 rounded-md text-sm font-medium">Services</a>
                     <a href="#projects" class="text-gray-700 hover:text-blue-600 px-2 lg:px-3 py-2 rounded-md text-sm font-medium">Projects</a>
+                    <a href="#policies" class="text-gray-700 hover:text-blue-600 px-2 lg:px-3 py-2 rounded-md text-sm font-medium">Policies</a>
                     <a href="#contact" class="text-gray-700 hover:text-blue-600 px-2 lg:px-3 py-2 rounded-md text-sm font-medium">Contact</a>
                 </div>
                 
@@ -109,60 +155,40 @@
             <div class="mobile-menu md:hidden" id="mobileMenu">
                 <div class="px-2 pt-2 pb-3 space-y-1 bg-white border-t">
                     <a href="#home" class="block text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-base font-medium">Home</a>
-                    <a href="#about" class="block text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-base font-medium">About</a>
                     <a href="#services" class="block text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-base font-medium">Services</a>
                     <a href="#projects" class="block text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-base font-medium">Projects</a>
+                    <a href="#policies" class="block text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-base font-medium">Policies</a>
                     <a href="#contact" class="block text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-base font-medium">Contact</a>
                 </div>
             </div>
         </div>
     </nav>
 
-    <!-- Home Section -->
-    <section id="home" class="min-h-screen flex items-center justify-center bg-gradient-to-r from-blue-600 to-indigo-700 text-white pt-16">
+    <!-- Hero Section -->
+    <section id="home" class="min-h-screen flex items-center justify-center bg-cover bg-center bg-no-repeat pt-16" style="background-image: linear-gradient(rgba(0, 0, 50, 0.75), rgba(0, 0, 50, 0.75)), url('https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');">
         <div class="text-center max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h1 class="hero-title text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6">
-                Unlock Your Business Potential with Expert Data Analysis
+            <h1 class="hero-title text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6 text-white">
+                Supercharge Your Success with Data-Driven Solutions
             </h1>
-            <p class="hero-subtitle text-base sm:text-lg md:text-xl mb-6 sm:mb-8 max-w-4xl mx-auto">
-                As a skilled Data Analyst, I transform complex data into actionable insights that drive growth, optimize decisions, and boost profitability. Let me help you turn your data into your greatest asset.
+            <p class="hero-subtitle text-base sm:text-lg md:text-xl mb-6 sm:mb-8 max-w-4xl mx-auto text-gray-100">
+                Empower your business, research, or studies with expert data analytics and training. Unlock actionable insights, optimize decisions, and achieve your goals with STEM Writers Kenya.
             </p>
             <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4 mb-8 sm:mb-10">
-                <a href="#projects" class="bg-white text-blue-600 px-6 py-3 rounded-full font-semibold hover:bg-blue-100 transition text-center">Explore My Projects</a>
-                <a href="#contact" class="bg-transparent border-2 border-white text-white px-6 py-3 rounded-full font-semibold hover:bg-white hover:text-blue-600 transition text-center">Hire Me Today</a>
+                <a href="#contact" class="bg-white text-blue-600 px-6 py-3 rounded-full font-semibold hover:bg-blue-100 transition text-center">Get a Free Consultation</a>
+                <a href="#services" class="bg-transparent border-2 border-white text-white px-6 py-3 rounded-full font-semibold hover:bg-white hover:text-blue-600 transition text-center">Discover Our Services</a>
             </div>
-            <div>
-                <p class="text-xs sm:text-sm uppercase tracking-wider mb-4">Trusted by businesses to deliver results</p>
-                <div class="flex flex-wrap justify-center gap-2 sm:gap-4 lg:gap-6">
-                    <span class="text-gray-200 text-sm sm:text-base">Python</span>
-                    <span class="text-gray-200 text-sm sm:text-base">SQL</span>
-                    <span class="text-gray-200 text-sm sm:text-base">Tableau</span>
-                    <span class="text-gray-200 text-sm sm:text-base">Power BI</span>
-                    <span class="text-gray-200 text-sm sm:text-base">RStudio</span>
-                    <span class="text-gray-200 text-sm sm:text-base">SPSS</span>
-                    <span class="text-gray-200 text-sm sm:text-base">Excel</span>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-4xl mx-auto">
+                <div onclick="selectInquiryType('business')" class="cursor-pointer bg-white bg-opacity-25 p-4 rounded-lg text-center ring-4 ring-transparent hover:ring-white transition backdrop-blur-sm">
+                    <h3 class="text-lg font-semibold mb-2 text-white">For Businesses</h3>
+                    <p class="text-sm text-gray-100">Boost profitability with tailored analytics to optimize operations and drive growth.</p>
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- About Section -->
-    <section id="about" class="py-12 sm:py-16 lg:py-20 bg-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-2xl sm:text-3xl font-bold text-center mb-8 sm:mb-12">About Me</h2>
-            <div class="flex flex-col lg:flex-row items-center gap-8 lg:gap-12">
-                <div class="w-full sm:w-2/3 md:w-1/2 lg:w-2/5">
-                    <div class="aspect-square bg-gray-300 rounded-lg shadow-lg flex items-center justify-center">
-                        <span class="text-gray-600 text-sm">Vincent's Photo</span>
-                    </div>
+                <div onclick="selectInquiryType('student')" class="cursor-pointer bg-white bg-opacity-25 p-4 rounded-lg text-center ring-4 ring-transparent hover:ring-white transition backdrop-blur-sm">
+                    <h3 class="text-lg font-semibold mb-2 text-white">For Students</h3>
+                    <p class="text-sm text-gray-100">Master SPSS, RStudio, and Excel with personalized training for academic success.</p>
                 </div>
-                <div class="w-full lg:w-3/5">
-                    <p class="text-base sm:text-lg text-gray-700 mb-4">
-                        I'm a passionate Data Analyst with a strong background in transforming complex datasets into meaningful insights. Skilled in Python, R, SQL, SPSS, RStudio, Excel, Tableau, and Power BI, I specialize in uncovering trends and providing data-driven solutions.
-                    </p>
-                    <p class="text-base sm:text-lg text-gray-700">
-                        I also offer training in SPSS, RStudio, and Excel to empower others to master data analysis. My mission is to help businesses and individuals make informed decisions through accurate analysis and education. Let's work together to unlock your data's potential!
-                    </p>
+                <div onclick="selectInquiryType('research')" class="cursor-pointer bg-white bg-opacity-25 p-4 rounded-lg text-center ring-4 ring-transparent hover:ring-white transition backdrop-blur-sm">
+                    <h3 class="text-lg font-semibold mb-2 text-white">For Researchers</h3>
+                    <p class="text-sm text-gray-100">Enhance publications with robust statistical analysis and compelling visualizations.</p>
                 </div>
             </div>
         </div>
@@ -171,27 +197,37 @@
     <!-- Services Section -->
     <section id="services" class="py-12 sm:py-16 lg:py-20 bg-gray-100">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-2xl sm:text-3xl font-bold text-center mb-8 sm:mb-12">My Services</h2>
+            <h2 class="text-2xl sm:text-3xl font-bold text-center mb-8 sm:mb-12">Our Solutions for You</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
                 <div class="service-card bg-white p-4 sm:p-6 rounded-lg shadow-lg">
-                    <h3 class="text-lg sm:text-xl font-semibold mb-3 sm:mb-4">Data Analysis & Statistical Services</h3>
-                    <p class="text-gray-700 mb-3">Delivering actionable insights using advanced statistical methods, including:</p>
+                    <h3 class="text-lg sm:text-xl font-semibold mb-3 sm:mb-4">Data Analysis & Insights</h3>
+                    <p class="text-gray-700 mb-3">Transform raw data into strategic decisions with advanced analytics.</p>
                     <ul class="list-disc pl-5 text-sm sm:text-base text-gray-700 space-y-1">
-                        <li>ANOVA (Analysis of Variance)</li>
-                        <li>Regression Analysis (Linear, Logistic, Multiple)</li>
-                        <li>Time Series Analysis</li>
-                        <li>Hypothesis Testing</li>
-                        <li>Cluster Analysis</li>
-                        <li>Factor Analysis</li>
+                        <li>Predictive modeling for business forecasting</li>
+                        <li>Customer segmentation and behavior analysis</li>
+                        <li>Statistical testing for research validation</li>
                     </ul>
+                    <a href="#contact" class="mt-4 inline-block bg-blue-600 text-white px-4 py-2 rounded-full font-semibold hover:bg-blue-700 transition">Request Analysis</a>
                 </div>
                 <div class="service-card bg-white p-4 sm:p-6 rounded-lg shadow-lg">
-                    <h3 class="text-lg sm:text-xl font-semibold mb-3 sm:mb-4">Data Visualization</h3>
-                    <p class="text-sm sm:text-base text-gray-700">Creating intuitive dashboards and visualizations with Tableau, Power BI, RStudio, SPSS, and Excel to communicate insights effectively.</p>
+                    <h3 class="text-lg sm:text-xl font-semibold mb-3 sm:mb-4">Interactive Visualizations</h3>
+                    <p class="text-sm sm:text-base text-gray-700">Communicate insights with dynamic dashboards in Tableau, Power BI, and more.</p>
+                    <ul class="list-disc pl-5 text-sm sm:text-base text-gray-700 space-y-1">
+                        <li>Real-time performance tracking</li>
+                        <li>Custom visualizations for stakeholders</li>
+                        <li>Data storytelling for publications</li>
+                    </ul>
+                    <a href="#contact" class="mt-4 inline-block bg-blue-600 text-white px-4 py-2 rounded-full font-semibold hover:bg-blue-700 transition">Build Your Dashboard</a>
                 </div>
                 <div class="service-card bg-white p-4 sm:p-6 rounded-lg shadow-lg md:col-span-2 lg:col-span-1">
-                    <h3 class="text-lg sm:text-xl font-semibold mb-3 sm:mb-4">Training in Data Analysis Tools</h3>
-                    <p class="text-sm sm:text-base text-gray-700">Offering personalized training in SPSS, RStudio, and Excel to equip you with the skills to analyze and interpret data confidently.</p>
+                    <h3 class="text-lg sm:text-xl font-semibold mb-3 sm:mb-4">Data Analysis Training</h3>
+                    <p class="text-sm sm:text-base text-gray-700">Master tools like SPSS, RStudio, and Excel with expert-led training.</p>
+                    <ul class="list-disc pl-5 text-sm sm:text-base text-gray-700 space-y-1">
+                        <li>Personalized courses for all skill levels</li>
+                        <li>Practical exercises for real-world applications</li>
+                        <li>Support for academic and professional goals</li>
+                    </ul>
+                    <a href="#contact" class="mt-4 inline-block bg-blue-600 text-white px-4 py-2 rounded-full font-semibold hover:bg-blue-700 transition">Start Training</a>
                 </div>
             </div>
         </div>
@@ -200,14 +236,14 @@
     <!-- Projects Section -->
     <section id="projects" class="py-12 sm:py-16 lg:py-20 bg-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-2xl sm:text-3xl font-bold text-center mb-8 sm:mb-12">My Projects</h2>
+            <h2 class="text-2xl sm:text-3xl font-bold text-center mb-8 sm:mb-12">Proven Results</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
                 <div class="project-card bg-gray-100 p-4 sm:p-6 rounded-lg shadow-lg">
                     <div class="mb-4 h-48 sm:h-56">
                         <canvas id="salesChart" class="w-full h-full"></canvas>
                     </div>
                     <h3 class="text-lg sm:text-xl font-semibold mb-2">Sales Forecasting Model</h3>
-                    <p class="text-sm sm:text-base text-gray-700 mb-4">Developed a predictive model using Python and scikit-learn to forecast sales with 95% accuracy.</p>
+                    <p class="text-sm sm:text-base text-gray-700 mb-4">Increased revenue by 20% with a predictive model using Python and scikit-learn. Cost: $5,000</p>
                     <a href="https://github.com/datasleak/project1" class="text-blue-600 hover:underline text-sm sm:text-base">View on GitHub</a>
                 </div>
                 <div class="project-card bg-gray-100 p-4 sm:p-6 rounded-lg shadow-lg">
@@ -215,17 +251,60 @@
                         <canvas id="segmentationChart" class="w-full h-full"></canvas>
                     </div>
                     <h3 class="text-lg sm:text-xl font-semibold mb-2">Customer Segmentation Dashboard</h3>
-                    <p class="text-sm sm:text-base text-gray-700 mb-4">Created an interactive Tableau dashboard to segment customers based on purchasing behavior.</p>
+                    <p class="text-sm sm:text-base text-gray-700 mb-4">Improved targeting with a Tableau dashboard for customer behavior analysis. Cost: $4,000</p>
                     <a href="https://github.com/datasleak/project2" class="text-blue-600 hover:underline text-sm sm:text-base">View on GitHub</a>
                 </div>
-                <div class="project-card bg-gray-100 p-4 sm:p-6 rounded-lg shadow-lg md:col-span-2 lg:col-span-1">
+                <div class="project-card bg-gray-100 p-4 sm:p-6 rounded-lg shadow-lg">
                     <div class="mb-4 h-48 sm:h-56">
-                        <canvas id="churnChart" class="w-full h-full"></canvas>
+                        <canvas id="healthChart" class="w-full h-full"></canvas>
                     </div>
-                    <h3 class="text-lg sm:text-xl font-semibold mb-2">Churn Prediction Analysis</h3>
-                    <p class="text-sm sm:text-base text-gray-700 mb-4">Built a logistic regression model to predict customer churn with actionable insights.</p>
-                    <a href="https://github.com/datasleak/project3" class="text-blue-600 hover:underline text-sm sm:text-base">View on GitHub</a>
+                    <h3 class="text-lg sm:text-xl font-semibold mb-2">Healthcare Outcome Prediction</h3>
+                    <p class="text-sm sm:text-base text-gray-700 mb-4">Enhanced research with 88% accurate patient outcome predictions. Cost: $6,000</p>
+                    <a href="https://github.com/datasleak/healthcare-prediction" class="text-blue-600 hover:underline text-sm sm:text-base">View on GitHub</a>
                 </div>
+                <div class="project-card bg-gray-100 p-4 sm:p-6 rounded-lg shadow-lg">
+                    <div class="mb-4 h-48 sm:h-56">
+                        <img src="https://images.unsplash.com/photo-1551288049-b1f3a50430c1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Hong Kong Athlete Sponsorship Impact" class="project-img w-full h-full object-cover rounded-lg">
+                    </div>
+                    <h3 class="text-lg sm:text-xl font-semibold mb-2">Hong Kong Athlete Sponsorship Impact</h3>
+                    <p class="text-sm sm:text-base text-gray-700 mb-4">Analyzed sponsorship effects on athlete training and motivation using corrected data. Cost: $7,000</p>
+                    <a href="https://github.com/datasleak/sponsorship-impact" class="text-blue-600 hover:underline text-sm sm:text-base">View on GitHub</a>
+                </div>
+                <div class="project-card bg-gray-100 p-4 sm:p-6 rounded-lg shadow-lg">
+                    <div class="mb-4 h-48 sm:h-56">
+                        <img src="https://images.unsplash.com/photo-1516321310767-3b0f7b4b2c2b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Tang Sze Hang Analysis" class="project-img w-full h-full object-cover rounded-lg">
+                    </div>
+                    <h3 class="text-lg sm:text-xl font-semibold mb-2">Tang Sze Hang Athlete Analysis</h3>
+                    <p class="text-sm sm:text-base text-gray-700 mb-4">Preliminary analysis of athlete performance with incomplete data for Tang Sze Hang. Cost: $2,000</p>
+                    <a href="https://github.com/datasleak/tang-analysis" class="text-blue-600 hover:underline text-sm sm:text-base">View on GitHub</a>
+                </div>
+                <div class="project-card bg-gray-100 p-4 sm:p-6 rounded-lg shadow-lg">
+                    <div class="mb-4 h-48 sm:h-56">
+                        <img src="https://images.unsplash.com/photo-1556740714-3c9d5e1e6c7b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Dallas Crime and Health" class="project-img w-full h-full object-cover rounded-lg">
+                    </div>
+                    <h3 class="text-lg sm:text-xl font-semibold mb-2">Dallas Crime and Health Disparities</h3>
+                    <p class="text-sm sm:text-base text-gray-700 mb-4">Studied neighborhood socioeconomic impact on crime and health disparities in Dallas. Cost: $7,000</p>
+                    <a href="https://github.com/datasleak/dallas-crime" class="text-blue-600 hover:underline text-sm sm:text-base">View on GitHub</a>
+                </div>
+                <div class="project-card bg-gray-100 p-4 sm:p-6 rounded-lg shadow-lg">
+                    <div class="mb-4 h-48 sm:h-56">
+                        <img src="https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Hong Kong Athlete Sponsorship Study" class="project-img w-full h-full object-cover rounded-lg">
+                    </div>
+                    <h3 class="text-lg sm:text-xl font-semibold mb-2">Hong Kong Athlete Sponsorship Study</h3>
+                    <p class="text-sm sm:text-base text-gray-700 mb-4">Comprehensive study with questionnaire translation, data collection, and analysis. Cost: $7,000</p>
+                    <a href="https://github.com/datasleak/sponsorship-study" class="text-blue-600 hover:underline text-sm sm:text-base">View on GitHub</a>
+                </div>
+                <div class="project-card bg-gray-100 p-4 sm:p-6 rounded-lg shadow-lg">
+                    <div class="mb-4 h-48 sm:h-56">
+                        <img src="images/Linear Regr.png" alt="Parental Education Linear Regression" class="project-img w-full h-full object-cover rounded-lg">
+                    </div>
+                    <h3 class="text-lg sm:text-xl font-semibold mb-2">Parental Education Linear Regression</h3>
+                    <p class="text-sm sm:text-base text-gray-700 mb-4">Linear regression analysis of father's and mother's education levels. Cost: $3,000</p>
+                    <a href="https://github.com/Datasleak/Relationship-between-Father-s-and-Mother-s-Education-Level-A-Linear-Regression-Analysis" class="text-blue-600 hover:underline text-sm sm:text-base">View on GitHub</a>
+                </div>
+            </div>
+            <div class="text-center mt-8">
+                <a href="#contact" class="bg-blue-600 text-white px-6 py-3 rounded-full font-semibold hover:bg-blue-700 transition">See How We Can Help You</a>
             </div>
         </div>
     </section>
@@ -431,11 +510,11 @@
                             <ul class="space-y-2 text-sm text-gray-700">
                                 <li class="flex items-start">
                                     <span class="text-orange-500 mr-2 mt-1 font-bold">•</span>
-                                    <span><strong>14-Day Grace Period:</strong> Final payment due 14 days post-delivery</span>
+                                    <span><strong>60-Day Grace Period:</strong> Final payment due 60 days post-delivery</span>
                                 </li>
                                 <li class="flex items-start">
                                     <span class="text-orange-500 mr-2 mt-1 font-bold">•</span>
-                                    <span><strong>Rights Reversion:</strong> Full ownership automatically reverts to service provider if unpaid after 14 days</span>
+                                    <span><strong>Rights Reversion:</strong> Full ownership automatically reverts to service provider if unpaid after 60 days</span>
                                 </li>
                                 <li class="flex items-start">
                                     <span class="text-orange-500 mr-2 mt-1 font-bold">•</span>
@@ -457,7 +536,7 @@
                                 <div class="bg-yellow-100 p-2 rounded-full w-8 h-8 mx-auto mb-2 flex items-center justify-center">
                                     <span class="text-yellow-600 font-bold">2</span>
                                 </div>
-                                <p class="text-gray-700"><strong>Grace Period</strong><br>14 days for final payment</p>
+                                <p class="text-gray-700"><strong>Grace Period</strong><br>60 days for final payment</p>
                             </div>
                             <div class="text-center">
                                 <div class="bg-orange-100 p-2 rounded-full w-8 h-8 mx-auto mb-2 flex items-center justify-center">
@@ -713,50 +792,57 @@
     </section>
 
     <!-- Contact Section -->
-    <section id="contact" class="py-12 sm:py-16 lg:py-20 bg-gray-100">
+    <section id="contact" class="py-12 sm:py-16 lg:py-20 bg-gradient-to-r from-blue-600 to-indigo-700 text-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-2xl sm:text-3xl font-bold text-center mb-8 sm:mb-12">Get in Touch</h2>
+            <h2 class="text-2xl sm:text-3xl font-bold text-center mb-8 sm:mb-12">Ready to Transform Your Data?</h2>
             <div class="max-w-lg mx-auto">
-                <p class="text-base sm:text-lg text-gray-700 mb-6 text-center">
-                    Ready to transform your data or master analysis tools? Fill out the form below or explore employment opportunities!
+                <p class="text-base sm:text-lg mb-6 text-center">
+                    Contact us for a free consultation or to start your training journey today!
                 </p>
-                <div class="flex justify-center mb-6 sm:mb-8">
-                    <a href="mailto:your.email@example.com?subject=Employment%20Opportunity" class="bg-blue-600 text-white px-6 py-3 rounded-full font-semibold hover:bg-blue-700 transition text-sm sm:text-base">Hire Professional</a>
-                </div>
                 <form action="https://formspree.io/f/xrbloqkw" method="POST" class="space-y-4 sm:space-y-6">
                     <div>
-                        <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
-                        <input type="text" id="name" name="name" required class="w-full p-3 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 text-sm sm:text-base">
+                        <label for="name" class="block text-sm font-medium mb-1">Full Name</label>
+                        <input type="text" id="name" name="name" required class="w-full p-3 border border-gray-300 rounded-md focus:ring-white focus:border-white text-sm sm:text-base bg-white bg-opacity-20 text-white placeholder-gray-300">
                     </div>
                     <div>
-                        <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
-                        <input type="email" id="email" name="email" required class="w-full p-3 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 text-sm sm:text-base">
+                        <label for="email" class="block text-sm font-medium mb-1">Email Address</label>
+                        <input type="email" id="email" name="email" required class="w-full p-3 border border-gray-300 rounded-md focus:ring-white focus:border-white text-sm sm:text-base bg-white bg-opacity-20 text-white placeholder-gray-300">
                     </div>
                     <div>
-                        <label for="inquiry_type" class="block text-sm font-medium text-gray-700 mb-1">Inquiry Type</label>
-                        <select id="inquiry_type" name="inquiry_type" required class="w-full p-3 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 text-sm sm:text-base">
-                            <option value="data_analysis">Data Analysis Services</option>
-                            <option value="training">Training in SPSS, RStudio, or Excel</option>
-                        </select>
+                        <label class="block text-sm font-medium mb-1">What Are You Interested In?</label>
+                        <div class="space-y-2">
+                            <label class="flex items-center cursor-pointer">
+                                <input type="radio" name="inquiry_type" value="business_growth" class="form-radio h-5 w-5 text-white border-white bg-white bg-opacity-20 focus:ring-white mr-3">
+                                <span>Business Growth Analytics</span>
+                            </label>
+                            <label class="flex items-center cursor-pointer">
+                                <input type="radio" name="inquiry_type" value="student_training" class="form-radio h-5 w-5 text-white border-white bg-white bg-opacity-20 focus:ring-white mr-3">
+                                <span>Student Training (SPSS, RStudio, Excel)</span>
+                            </label>
+                            <label class="flex items-center cursor-pointer">
+                                <input type="radio" name="inquiry_type" value="research_publication" class="form-radio h-5 w-5 text-white border-white bg-white bg-opacity-20 focus:ring-white mr-3">
+                                <span>Research & Publication Support</span>
+                            </label>
+                        </div>
                     </div>
                     <div>
-                        <label for="message" class="block text-sm font-medium text-gray-700 mb-1">Message</label>
-                        <textarea id="message" name="message" rows="4" required class="w-full p-3 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 text-sm sm:text-base"></textarea>
+                        <label for="message" class="block text-sm font-medium mb-1">Tell Us About Your Needs</label>
+                        <textarea id="message" name="message" rows="4" required class="w-full p-3 border border-gray-300 rounded-md focus:ring-white focus:border-white text-sm sm:text-base bg-white bg-opacity-20 text-white placeholder-gray-300"></textarea>
                     </div>
                     <div>
-                        <button type="submit" class="w-full bg-blue-600 text-white px-6 py-3 rounded-full font-semibold hover:bg-blue-700 transition text-sm sm:text-base">Submit Inquiry</button>
+                        <button type="submit" class="w-full bg-white text-blue-600 px-6 py-3 rounded-full font-semibold hover:bg-blue-100 transition text-sm sm:text-base">Submit Inquiry</button>
                     </div>
                 </form>
                 <div class="mt-6 text-center space-y-2">
-                   <p class="text-gray-700 text-sm sm:text-base">
-                      <a href="https://linkedin.com/in/vincent-ngeno-datascientist" class="text-blue-600 hover:underline" target="_blank">
-                        <strong>LinkedIn: vincent-ngeno-datascientist</strong>
-                      </a>
+                    <p class="text-sm sm:text-base">
+                        <a href="https://linkedin.com/in/vincent-ngeno-datascientist" class="hover:underline" target="_blank">
+                            <strong>LinkedIn: vincent-ngeno-datascientist</strong>
+                        </a>
                     </p>
-                    <p class="text-gray-700 text-sm sm:text-base">
-                      <a href="https://github.com/datasleak" class="text-blue-600 hover:underline" target="_blank">
-                        <strong>GitHub: datasleak</strong>
-                      </a>
+                    <p class="text-sm sm:text-base">
+                        <a href="https://github.com/datasleak" class="hover:underline" target="_blank">
+                            <strong>GitHub: datasleak</strong>
+                        </a>
                     </p>
                 </div>
             </div>
@@ -766,7 +852,7 @@
     <!-- Footer -->
     <footer class="bg-gray-800 text-white py-6">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <p class="text-sm sm:text-base">&copy; 2025 Vincent Ngeno. All rights reserved.</p>
+            <p class="text-sm sm:text-base">&copy; 2025 STEM Writers Kenya. All rights reserved.</p>
         </div>
     </footer>
 
@@ -814,177 +900,114 @@
             }
         });
 
-        // Initialize charts with responsive configuration
-        document.addEventListener('DOMContentLoaded', () => {
-            const isMobile = window.innerWidth < 768;
+        // Inquiry type selection function
+        function selectInquiryType(type) {
+            const radios = document.querySelectorAll('input[name="inquiry_type"]');
+            const cards = document.querySelectorAll('[onclick*="selectInquiryType"]');
             
-            const commonOptions = {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: { 
-                        position: 'top',
-                        labels: {
-                            boxWidth: isMobile ? 8 : 12,
-                            fontSize: isMobile ? 10 : 12,
-                            padding: isMobile ? 10 : 15
-                        }
-                    }
-                },
-                elements: {
-                    point: {
-                        radius: isMobile ? 2 : 3
-                    }
+            // Remove active state from all cards
+            cards.forEach(card => card.classList.remove('ring-4', 'ring-white'));
+            
+            // Add active state to selected card
+            event.target.closest('[onclick*="selectInquiryType"]').classList.add('ring-4', 'ring-white');
+            
+            // Select the corresponding radio
+            let value;
+            switch(type) {
+                case 'business':
+                    value = 'business_growth';
+                    break;
+                case 'student':
+                    value = 'student_training';
+                    break;
+                case 'research':
+                    value = 'research_publication';
+                    break;
+            }
+            radios.forEach(radio => {
+                if (radio.value === value) {
+                    radio.checked = true;
                 }
-            };
+            });
+            
+            // Scroll to form
+            document.querySelector('#contact form').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
 
-            try {
-                // Sales Forecasting Model (Line Chart)
-                new Chart(document.getElementById('salesChart'), {
-                    type: 'line',
+        // Chart initialization for original projects
+        document.addEventListener('DOMContentLoaded', () => {
+            const charts = [
+                {
+                    id: 'salesChart',
+                    title: 'Sales Forecasting',
                     data: {
-                        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
-                        datasets: [
-                            {
-                                label: 'Actual Sales',
-                                data: [12000, 15000, 14000, 16000, 18000, 17000],
-                                borderColor: '#3B82F6',
-                                backgroundColor: 'rgba(59, 130, 246, 0.2)',
-                                fill: true,
-                                tension: 0.4
-                            },
-                            {
-                                label: 'Predicted Sales',
-                                data: [11500, 14800, 14200, 15800, 17500, 17200],
-                                borderColor: '#10B981',
-                                backgroundColor: 'rgba(16, 185, 129, 0.2)',
-                                fill: true,
-                                tension: 0.4
-                            }
-                        ]
-                    },
-                    options: {
-                        ...commonOptions,
-                        plugins: {
-                            ...commonOptions.plugins,
-                            title: { 
-                                display: true, 
-                                text: 'Sales Forecast (95% Accuracy)',
-                                font: { size: isMobile ? 12 : 14 }
-                            }
-                        },
-                        scales: {
-                            y: { 
-                                beginAtZero: true, 
-                                title: { 
-                                    display: !isMobile, 
-                                    text: 'Sales ($)',
-                                    font: { size: 10 }
-                                },
-                                ticks: { 
-                                    font: { size: isMobile ? 8 : 10 },
-                                    callback: function(value) {
-                                        return isMobile ? (value/1000) + 'K' : '$' + value.toLocaleString();
-                                    }
-                                }
-                            },
-                            x: { 
-                                title: { 
-                                    display: !isMobile, 
-                                    text: 'Month',
-                                    font: { size: 10 }
-                                },
-                                ticks: { font: { size: isMobile ? 8 : 10 } }
-                            }
-                        }
-                    }
-                });
-
-                // Customer Segmentation Dashboard (Pie Chart)
-                new Chart(document.getElementById('segmentationChart'), {
-                    type: 'pie',
-                    data: {
-                        labels: ['High-Value', 'Mid-Value', 'Low-Value'],
+                        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
                         datasets: [{
-                            data: [30, 45, 25],
-                            backgroundColor: ['#3B82F6', '#10B981', '#F59E0B'],
-                            borderColor: ['#ffffff', '#ffffff', '#ffffff'],
-                            borderWidth: 2
-                        }]
-                    },
-                    options: {
-                        ...commonOptions,
-                        plugins: {
-                            ...commonOptions.plugins,
-                            title: { 
-                                display: true, 
-                                text: 'Customer Segmentation',
-                                font: { size: isMobile ? 12 : 14 }
-                            }
-                        }
-                    }
-                });
-
-                // Churn Prediction Analysis (Bar Chart)
-                new Chart(document.getElementById('churnChart'), {
-                    type: 'bar',
-                    data: {
-                        labels: ['Group A', 'Group B', 'Group C'],
-                        datasets: [{
-                            label: 'Churn Probability',
-                            data: [0.65, 0.40, 0.20],
-                            backgroundColor: ['#3B82F6', '#10B981', '#F59E0B'],
-                            borderColor: ['#2B6CB0', '#059669', '#D97706'],
+                            label: 'Sales',
+                            data: [1200, 1900, 3000, 2500, 4000],
+                            backgroundColor: 'rgba(59, 130, 246, 0.5)',
+                            borderColor: 'rgba(59, 130, 246, 1)',
                             borderWidth: 1
                         }]
-                    },
+                    }
+                },
+                {
+                    id: 'segmentationChart',
+                    title: 'Customer Segmentation',
+                    data: {
+                        labels: ['Group A', 'Group B', 'Group C', 'Group D'],
+                        datasets: [{
+                            label: 'Customers',
+                            data: [300, 500, 200, 400],
+                            backgroundColor: 'rgba(236, 72, 153, 0.5)',
+                            borderColor: 'rgba(236, 72, 153, 1)',
+                            borderWidth: 1
+                        }]
+                    }
+                },
+                {
+                    id: 'healthChart',
+                    title: 'Healthcare Outcomes',
+                    data: {
+                        labels: ['Q1', 'Q2', 'Q3', 'Q4'],
+                        datasets: [{
+                            label: 'Accuracy',
+                            data: [85, 88, 90, 87],
+                            backgroundColor: 'rgba(16, 185, 129, 0.5)',
+                            borderColor: 'rgba(16, 185, 129, 1)',
+                            borderWidth: 1
+                        }]
+                    }
+                }
+            ];
+
+            charts.forEach(chart => {
+                new Chart(document.getElementById(chart.id), {
+                    type: 'bar',
+                    data: chart.data,
                     options: {
-                        ...commonOptions,
-                        plugins: {
-                            ...commonOptions.plugins,
-                            title: { 
-                                display: true, 
-                                text: 'Churn Prediction by Customer Group',
-                                font: { size: isMobile ? 12 : 14 }
-                            }
-                        },
+                        responsive: true,
+                        maintainAspectRatio: false,
                         scales: {
-                            y: { 
-                                beginAtZero: true, 
-                                title: { 
-                                    display: !isMobile, 
-                                    text: 'Churn Probability',
-                                    font: { size: 10 }
-                                },
-                                ticks: { font: { size: isMobile ? 8 : 10 } }
-                            },
-                            x: { 
-                                title: { 
-                                    display: !isMobile, 
-                                    text: 'Customer Group',
-                                    font: { size: 10 }
-                                },
-                                ticks: { font: { size: isMobile ? 8 : 10 } }
+                            y: { beginAtZero: true }
+                        },
+                        plugins: {
+                            legend: { display: true },
+                            title: { display: true, text: chart.title }
+                        },
+                        plugins: {
+                            legend: {
+                                labels: {
+                                    font: {
+                                        size: window.innerWidth < 400 ? 10 : 14
+                                    }
+                                }
                             }
                         }
                     }
                 });
-
-                console.log('Charts initialized successfully');
-            } catch (error) {
-                console.error('Error initializing charts:', error);
-            }
-        });
-
-        // Handle window resize for charts
-        window.addEventListener('resize', () => {
-            // Charts automatically handle resize due to responsive: true
-            // But we can trigger a manual resize if needed
-            Chart.helpers.each(Chart.instances, function(instance){
-                instance.resize();
             });
         });
     </script>
 </body>
 </html>
-
