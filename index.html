@@ -6,6 +6,7 @@
     <title>STEM Writers Kenya - Data Analytics for Businesses, Students, Researchers</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         body {
             font-family: 'Inter', sans-serif;
@@ -17,11 +18,12 @@
             background-color: rgba(255, 255, 255, 0.95);
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
-        .project-card {
-            transition: transform 0.3s ease;
+        .project-card, .testimonial-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
-        .project-card:hover {
+        .project-card:hover, .testimonial-card:hover {
             transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
         }
         canvas, .project-img {
             max-width: 100%;
@@ -54,76 +56,60 @@
             transform: rotate(45deg) translate(-5px, -6px);
         }
         
-        /* Hero section responsive text */
-        @media (max-width: 640px) {
-            .hero-title {
-                font-size: 2rem;
-                line-height: 1.2;
-            }
-            .hero-subtitle {
-                font-size: 1rem;
-            }
+        .hero-title {
+            font-size: clamp(2rem, 5vw, 4rem);
+            line-height: 1.1;
+        }
+        .hero-subtitle {
+            font-size: clamp(1rem, 2.5vw, 1.25rem);
         }
         
-        /* Card responsive adjustments */
-        .service-card, .project-card {
-            min-height: 300px;
+        .service-card {
+            min-height: 280px;
+            transition: all 0.3s ease;
         }
-        
+        .service-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+        }
+
+        .social-icons a {
+            margin: 0 12px;
+            color: #ffffff;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+        .social-icons a:hover {
+            color: #93c5fd;
+            transform: scale(1.1);
+        }
+        .cta-button {
+            transition: all 0.3s ease;
+        }
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .pricing-badge {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .trust-indicators {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        }
+
         @media (max-width: 768px) {
-            .service-card, .project-card {
+            .service-card {
                 min-height: auto;
             }
-        }
-
-        /* Tech icons styling */
-        .tech-icon {
-            width: 32px;
-            height: 32px;
-            margin: 0 8px;
-            transition: transform 0.3s ease;
-        }
-        .tech-icon:hover {
-            transform: scale(1.2);
-        }
-        @media (max-width: 640px) {
-            .tech-icon {
-                width: 24px;
-                height: 24px;
-                margin: 0 4px;
-            }
-        }
-
-        /* Ultra-small screens */
-        @media (max-width: 320px) {
-            .hero-title {
-                font-size: 1.75rem;
-            }
-            .hero-subtitle {
-                font-size: 0.875rem;
-            }
-            .service-card, .project-card, #policies ul, #contact label, #contact p {
-                font-size: 0.75rem; /* text-xs */
-            }
-            .hamburger span {
-                width: 30px;
-                height: 4px;
-                margin: 6px 0;
-            }
-            #contact .space-y-2 > label {
-                font-size: 0.875rem; /* text-sm */
-            }
-        }
-
-        /* Ultra-wide screens */
-        @media (min-width: 1440px) {
-            .max-w-7xl, .max-w-6xl, .max-w-4xl {
-                max-width: 1280px; /* Cap container width */
+            .mobile-spacing {
+                padding: 0.5rem;
             }
         }
     </style>
 </head>
-<body class="bg-gray-100">
+<body class="bg-gray-50">
     <!-- Navigation -->
     <nav class="navbar fixed top-0 w-full bg-white z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -133,12 +119,12 @@
                 </div>
                 
                 <!-- Desktop Navigation -->
-                <div class="hidden md:flex items-center space-x-2 lg:space-x-4">
-                    <a href="#home" class="text-gray-700 hover:text-blue-600 px-2 lg:px-3 py-2 rounded-md text-sm font-medium">Home</a>
-                    <a href="#services" class="text-gray-700 hover:text-blue-600 px-2 lg:px-3 py-2 rounded-md text-sm font-medium">Services</a>
-                    <a href="#projects" class="text-gray-700 hover:text-blue-600 px-2 lg:px-3 py-2 rounded-md text-sm font-medium">Projects</a>
-                    <a href="#policies" class="text-gray-700 hover:text-blue-600 px-2 lg:px-3 py-2 rounded-md text-sm font-medium">Policies</a>
-                    <a href="#contact" class="text-gray-700 hover:text-blue-600 px-2 lg:px-3 py-2 rounded-md text-sm font-medium">Contact</a>
+                <div class="hidden md:flex items-center space-x-6">
+                    <a href="#home" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium">Home</a>
+                    <a href="#services" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium">Services</a>
+                    <a href="#projects" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium">Case Studies</a>
+                    <a href="#testimonials" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium">Testimonials</a>
+                    <a href="#contact" class="bg-blue-600 text-white px-4 py-2 rounded-full font-medium hover:bg-blue-700 transition">Get Started</a>
                 </div>
                 
                 <!-- Mobile menu button -->
@@ -156,8 +142,8 @@
                 <div class="px-2 pt-2 pb-3 space-y-1 bg-white border-t">
                     <a href="#home" class="block text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-base font-medium">Home</a>
                     <a href="#services" class="block text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-base font-medium">Services</a>
-                    <a href="#projects" class="block text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-base font-medium">Projects</a>
-                    <a href="#policies" class="block text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-base font-medium">Policies</a>
+                    <a href="#projects" class="block text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-base font-medium">Case Studies</a>
+                    <a href="#testimonials" class="block text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-base font-medium">Testimonials</a>
                     <a href="#contact" class="block text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-base font-medium">Contact</a>
                 </div>
             </div>
@@ -167,692 +153,544 @@
     <!-- Hero Section -->
     <section id="home" class="min-h-screen flex items-center justify-center bg-cover bg-center bg-no-repeat pt-16" style="background-image: linear-gradient(rgba(0, 0, 50, 0.75), rgba(0, 0, 50, 0.75)), url('https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');">
         <div class="text-center max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h1 class="hero-title text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6 text-white">
-                Supercharge Your Success with Data-Driven Solutions
-            </h1>
-            <p class="hero-subtitle text-base sm:text-lg md:text-xl mb-6 sm:mb-8 max-w-4xl mx-auto text-gray-100">
-                Empower your business, research, or studies with expert data analytics and training. Unlock actionable insights, optimize decisions, and achieve your goals with STEM Writers Kenya.
-            </p>
-            <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4 mb-8 sm:mb-10">
-                <a href="#contact" class="bg-white text-blue-600 px-6 py-3 rounded-full font-semibold hover:bg-blue-100 transition text-center">Get a Free Consultation</a>
-                <a href="#services" class="bg-transparent border-2 border-white text-white px-6 py-3 rounded-full font-semibold hover:bg-white hover:text-blue-600 transition text-center">Discover Our Services</a>
+            <div class="mb-6">
+                <span class="inline-block bg-white bg-opacity-20 text-white px-4 py-2 rounded-full text-sm font-medium backdrop-blur-sm">
+                    ⚡ Trusted by 150+ Clients Across Kenya & Beyond
+                </span>
             </div>
+            <h1 class="hero-title font-bold mb-6 text-white">
+                Transform Your Data Into Business Success
+            </h1>
+            <p class="hero-subtitle mb-8 max-w-4xl mx-auto text-gray-100">
+                Professional data analytics, training, and insights that drive real results. Join successful businesses, researchers, and students who've accelerated their growth with our proven expertise.
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4 mb-12">
+                <a href="#contact" class="bg-white text-blue-600 px-8 py-4 rounded-full font-semibold hover:bg-blue-100 transition text-center cta-button shadow-lg">
+                    Start Free Consultation
+                </a>
+                <a href="#services" class="bg-transparent border-2 border-white text-white px-8 py-4 rounded-full font-semibold hover:bg-white hover:text-blue-600 transition text-center">
+                    View Our Services
+                </a>
+            </div>
+            
+            <!-- Trust Indicators -->
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-4xl mx-auto">
-                <div onclick="selectInquiryType('business')" class="cursor-pointer bg-white bg-opacity-25 p-4 rounded-lg text-center ring-4 ring-transparent hover:ring-white transition backdrop-blur-sm">
-                    <h3 class="text-lg font-semibold mb-2 text-white">For Businesses</h3>
-                    <p class="text-sm text-gray-100">Boost profitability with tailored analytics to optimize operations and drive growth.</p>
+                <div onclick="selectInquiryType('business')" class="cursor-pointer bg-white bg-opacity-25 p-6 rounded-lg text-center ring-4 ring-transparent hover:ring-white transition backdrop-blur-sm group">
+                    <div class="text-3xl mb-3">🚀</div>
+                    <h3 class="text-xl font-semibold mb-3 text-white">For Businesses</h3>
+                    <p class="text-sm text-gray-100">Increase profitability by 15-30% with data-driven insights</p>
+                    <div class="mt-4 text-xs text-blue-200 font-medium">Starting at $199</div>
                 </div>
-                <div onclick="selectInquiryType('student')" class="cursor-pointer bg-white bg-opacity-25 p-4 rounded-lg text-center ring-4 ring-transparent hover:ring-white transition backdrop-blur-sm">
-                    <h3 class="text-lg font-semibold mb-2 text-white">For Students</h3>
-                    <p class="text-sm text-gray-100">Master SPSS, RStudio, and Excel with personalized training for academic success.</p>
+                <div onclick="selectInquiryType('student')" class="cursor-pointer bg-white bg-opacity-25 p-6 rounded-lg text-center ring-4 ring-transparent hover:ring-white transition backdrop-blur-sm group">
+                    <div class="text-3xl mb-3">🎓</div>
+                    <h3 class="text-xl font-semibold mb-3 text-white">For Students</h3>
+                    <p class="text-sm text-gray-100">Master SPSS, R & Excel with personalized 1-on-1 training</p>
+                    <div class="mt-4 text-xs text-blue-200 font-medium">Starting at $49/session</div>
                 </div>
-                <div onclick="selectInquiryType('research')" class="cursor-pointer bg-white bg-opacity-25 p-4 rounded-lg text-center ring-4 ring-transparent hover:ring-white transition backdrop-blur-sm">
-                    <h3 class="text-lg font-semibold mb-2 text-white">For Researchers</h3>
-                    <p class="text-sm text-gray-100">Enhance publications with robust statistical analysis and compelling visualizations.</p>
+                <div onclick="selectInquiryType('research')" class="cursor-pointer bg-white bg-opacity-25 p-6 rounded-lg text-center ring-4 ring-transparent hover:ring-white transition backdrop-blur-sm group">
+                    <div class="text-3xl mb-3">📊</div>
+                    <h3 class="text-xl font-semibold mb-3 text-white">For Researchers</h3>
+                    <p class="text-sm text-gray-100">Publish-ready statistical analysis and visualizations</p>
+                    <div class="mt-4 text-xs text-blue-200 font-medium">Starting at $299</div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Services Section -->
-    <section id="services" class="py-12 sm:py-16 lg:py-20 bg-gray-100">
+    <section id="services" class="py-20 bg-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-2xl sm:text-3xl font-bold text-center mb-8 sm:mb-12">Our Solutions for You</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-                <div class="service-card bg-white p-4 sm:p-6 rounded-lg shadow-lg">
-                    <h3 class="text-lg sm:text-xl font-semibold mb-3 sm:mb-4">Data Analysis & Insights</h3>
-                    <p class="text-gray-700 mb-3">Transform raw data into strategic decisions with advanced analytics.</p>
-                    <ul class="list-disc pl-5 text-sm sm:text-base text-gray-700 space-y-1">
-                        <li>Predictive modeling for business forecasting</li>
-                        <li>Customer segmentation and behavior analysis</li>
-                        <li>Statistical testing for research validation</li>
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold mb-4">Our Expert Services</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Comprehensive data solutions tailored to your specific needs, backed by years of experience and proven results.
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="service-card bg-gray-50 p-8 rounded-xl shadow-lg border border-gray-100">
+                    <div class="flex items-center mb-6">
+                        <div class="bg-blue-100 p-3 rounded-full mr-4">
+                            <i class="fas fa-chart-line text-blue-600 text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold">Business Analytics</h3>
+                    </div>
+                    <p class="text-gray-700 mb-6">Transform raw business data into strategic insights that drive growth and profitability.</p>
+                    <ul class="text-sm text-gray-600 space-y-2 mb-6">
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-500 mt-1 mr-3 text-xs"></i>
+                            <span>Revenue forecasting & trend analysis</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-500 mt-1 mr-3 text-xs"></i>
+                            <span>Customer segmentation & behavior analysis</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-500 mt-1 mr-3 text-xs"></i>
+                            <span>Market research & competitive analysis</span>
+                        </li>
                     </ul>
-                    <a href="#contact" class="mt-4 inline-block bg-blue-600 text-white px-4 py-2 rounded-full font-semibold hover:bg-blue-700 transition">Request Analysis</a>
+                    <div class="flex items-center justify-between">
+                        <span class="text-2xl font-bold text-blue-600">From $199</span>
+                        <a href="#contact" class="bg-blue-600 text-white px-6 py-3 rounded-full font-medium hover:bg-blue-700 transition cta-button">Get Quote</a>
+                    </div>
                 </div>
-                <div class="service-card bg-white p-4 sm:p-6 rounded-lg shadow-lg">
-                    <h3 class="text-lg sm:text-xl font-semibold mb-3 sm:mb-4">Interactive Visualizations</h3>
-                    <p class="text-sm sm:text-base text-gray-700">Communicate insights with dynamic dashboards in Tableau, Power BI, and more.</p>
-                    <ul class="list-disc pl-5 text-sm sm:text-base text-gray-700 space-y-1">
-                        <li>Real-time performance tracking</li>
-                        <li>Custom visualizations for stakeholders</li>
-                        <li>Data storytelling for publications</li>
+
+                <div class="service-card bg-gray-50 p-8 rounded-xl shadow-lg border border-gray-100">
+                    <div class="flex items-center mb-6">
+                        <div class="bg-purple-100 p-3 rounded-full mr-4">
+                            <i class="fas fa-chart-bar text-purple-600 text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold">Data Visualization</h3>
+                    </div>
+                    <p class="text-gray-700 mb-6">Create compelling dashboards and reports that communicate insights clearly to stakeholders.</p>
+                    <ul class="text-sm text-gray-600 space-y-2 mb-6">
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-500 mt-1 mr-3 text-xs"></i>
+                            <span>Interactive Tableau & Power BI dashboards</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-500 mt-1 mr-3 text-xs"></i>
+                            <span>Custom charts and infographics</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-500 mt-1 mr-3 text-xs"></i>
+                            <span>Executive reporting templates</span>
+                        </li>
                     </ul>
-                    <a href="#contact" class="mt-4 inline-block bg-blue-600 text-white px-4 py-2 rounded-full font-semibold hover:bg-blue-700 transition">Build Your Dashboard</a>
+                    <div class="flex items-center justify-between">
+                        <span class="text-2xl font-bold text-purple-600">From $149</span>
+                        <a href="#contact" class="bg-purple-600 text-white px-6 py-3 rounded-full font-medium hover:bg-purple-700 transition cta-button">Get Quote</a>
+                    </div>
                 </div>
-                <div class="service-card bg-white p-4 sm:p-6 rounded-lg shadow-lg md:col-span-2 lg:col-span-1">
-                    <h3 class="text-lg sm:text-xl font-semibold mb-3 sm:mb-4">Data Analysis Training</h3>
-                    <p class="text-sm sm:text-base text-gray-700">Master tools like SPSS, RStudio, and Excel with expert-led training.</p>
-                    <ul class="list-disc pl-5 text-sm sm:text-base text-gray-700 space-y-1">
-                        <li>Personalized courses for all skill levels</li>
-                        <li>Practical exercises for real-world applications</li>
-                        <li>Support for academic and professional goals</li>
+
+                <div class="service-card bg-gray-50 p-8 rounded-xl shadow-lg border border-gray-100">
+                    <div class="flex items-center mb-6">
+                        <div class="bg-green-100 p-3 rounded-full mr-4">
+                            <i class="fas fa-graduation-cap text-green-600 text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold">Training & Mentorship</h3>
+                    </div>
+                    <p class="text-gray-700 mb-6">Master statistical software and data analysis techniques with personalized guidance.</p>
+                    <ul class="text-sm text-gray-600 space-y-2 mb-6">
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-500 mt-1 mr-3 text-xs"></i>
+                            <span>SPSS, R, Excel advanced training</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-500 mt-1 mr-3 text-xs"></i>
+                            <span>Statistical analysis for research</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-500 mt-1 mr-3 text-xs"></i>
+                            <span>Thesis & dissertation support</span>
+                        </li>
                     </ul>
-                    <a href="#contact" class="mt-4 inline-block bg-blue-600 text-white px-4 py-2 rounded-full font-semibold hover:bg-blue-700 transition">Start Training</a>
+                    <div class="flex items-center justify-between">
+                        <span class="text-2xl font-bold text-green-600">$49/hour</span>
+                        <a href="#contact" class="bg-green-600 text-white px-6 py-3 rounded-full font-medium hover:bg-green-700 transition cta-button">Book Session</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Why Choose Us Section -->
+            <div class="mt-20 trust-indicators rounded-2xl p-12">
+                <h3 class="text-3xl font-bold text-center mb-12">Why Choose STEM Writers Kenya?</h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="text-center">
+                        <div class="bg-white p-4 rounded-full w-16 h-16 mx-auto mb-4 flex items-center justify-center shadow-lg">
+                            <i class="fas fa-award text-blue-600 text-2xl"></i>
+                        </div>
+                        <h4 class="text-xl font-bold mb-3">5+ Years Experience</h4>
+                        <p class="text-gray-700">Deep expertise across industries with proven track record of delivering results</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="bg-white p-4 rounded-full w-16 h-16 mx-auto mb-4 flex items-center justify-center shadow-lg">
+                            <i class="fas fa-users text-green-600 text-2xl"></i>
+                        </div>
+                        <h4 class="text-xl font-bold mb-3">150+ Satisfied Clients</h4>
+                        <p class="text-gray-700">Trusted by businesses, researchers, and students across Kenya and internationally</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="bg-white p-4 rounded-full w-16 h-16 mx-auto mb-4 flex items-center justify-center shadow-lg">
+                            <i class="fas fa-clock text-purple-600 text-2xl"></i>
+                        </div>
+                        <h4 class="text-xl font-bold mb-3">24-Hour Response</h4>
+                        <p class="text-gray-700">Quick turnaround times with ongoing support throughout your project</p>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Projects Section -->
-    <section id="projects" class="py-12 sm:py-16 lg:py-20 bg-white">
+    <!-- Case Studies Section -->
+    <section id="projects" class="py-20 bg-gray-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-2xl sm:text-3xl font-bold text-center mb-8 sm:mb-12">Proven Results</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-                <div class="project-card bg-gray-100 p-4 sm:p-6 rounded-lg shadow-lg">
-                    <div class="mb-4 h-48 sm:h-56">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold mb-4">Success Stories</h2>
+                <p class="text-xl text-gray-600">Real projects, real results, real impact</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="project-card bg-white p-6 rounded-xl shadow-lg">
+                    <div class="mb-4 h-48 bg-gradient-to-br from-blue-100 to-blue-200 rounded-lg flex items-center justify-center">
                         <canvas id="salesChart" class="w-full h-full"></canvas>
                     </div>
-                    <h3 class="text-lg sm:text-xl font-semibold mb-2">Sales Forecasting Model</h3>
-                    <p class="text-sm sm:text-base text-gray-700 mb-4">Increased revenue by 20% with a predictive model using Python and scikit-learn. Cost: $5,000</p>
-                    <a href="https://github.com/datasleak/project1" class="text-blue-600 hover:underline text-sm sm:text-base">View on GitHub</a>
+                    <div class="pricing-badge text-white px-3 py-1 rounded-full text-sm font-medium mb-3 inline-block">Business Growth</div>
+                    <h3 class="text-xl font-bold mb-3">E-commerce Sales Optimization</h3>
+                    <p class="text-gray-700 mb-4">Increased client revenue by 32% through predictive analytics and customer behavior insights.</p>
+                    <div class="flex items-center justify-between text-sm text-gray-600 mb-4">
+                        <span><i class="fas fa-chart-line mr-2"></i>32% Revenue Increase</span>
+                        <span><i class="fas fa-dollar-sign mr-2"></i>ROI: 400%</span>
+                    </div>
+                    <a href="https://github.com/datasleak/project1" class="text-blue-600 hover:underline font-medium">View Case Study →</a>
                 </div>
-                <div class="project-card bg-gray-100 p-4 sm:p-6 rounded-lg shadow-lg">
-                    <div class="mb-4 h-48 sm:h-56">
+
+                <div class="project-card bg-white p-6 rounded-xl shadow-lg">
+                    <div class="mb-4 h-48 bg-gradient-to-br from-purple-100 to-purple-200 rounded-lg flex items-center justify-center">
                         <canvas id="segmentationChart" class="w-full h-full"></canvas>
                     </div>
-                    <h3 class="text-lg sm:text-xl font-semibold mb-2">Customer Segmentation Dashboard</h3>
-                    <p class="text-sm sm:text-base text-gray-700 mb-4">Improved targeting with a Tableau dashboard for customer behavior analysis. Cost: $4,000</p>
-                    <a href="https://github.com/datasleak/project2" class="text-blue-600 hover:underline text-sm sm:text-base">View on GitHub</a>
+                    <div class="bg-purple-600 text-white px-3 py-1 rounded-full text-sm font-medium mb-3 inline-block">Marketing Analytics</div>
+                    <h3 class="text-xl font-bold mb-3">Customer Segmentation Dashboard</h3>
+                    <p class="text-gray-700 mb-4">Improved marketing ROI by 45% with targeted customer segmentation and behavior analysis.</p>
+                    <div class="flex items-center justify-between text-sm text-gray-600 mb-4">
+                        <span><i class="fas fa-bullseye mr-2"></i>45% Better Targeting</span>
+                        <span><i class="fas fa-users mr-2"></i>5 Distinct Segments</span>
+                    </div>
+                    <a href="https://github.com/datasleak/project2" class="text-purple-600 hover:underline font-medium">View Case Study →</a>
                 </div>
-                <div class="project-card bg-gray-100 p-4 sm:p-6 rounded-lg shadow-lg">
-                    <div class="mb-4 h-48 sm:h-56">
+
+                <div class="project-card bg-white p-6 rounded-xl shadow-lg">
+                    <div class="mb-4 h-48 bg-gradient-to-br from-green-100 to-green-200 rounded-lg flex items-center justify-center">
                         <canvas id="healthChart" class="w-full h-full"></canvas>
                     </div>
-                    <h3 class="text-lg sm:text-xl font-semibold mb-2">Healthcare Outcome Prediction</h3>
-                    <p class="text-sm sm:text-base text-gray-700 mb-4">Enhanced research with 88% accurate patient outcome predictions. Cost: $6,000</p>
-                    <a href="https://github.com/datasleak/healthcare-prediction" class="text-blue-600 hover:underline text-sm sm:text-base">View on GitHub</a>
-                </div>
-                <div class="project-card bg-gray-100 p-4 sm:p-6 rounded-lg shadow-lg">
-                    <div class="mb-4 h-48 sm:h-56">
-                        <img src="https://images.unsplash.com/photo-1551288049-b1f3a50430c1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Hong Kong Athlete Sponsorship Impact" class="project-img w-full h-full object-cover rounded-lg">
+                    <div class="bg-green-600 text-white px-3 py-1 rounded-full text-sm font-medium mb-3 inline-block">Research</div>
+                    <h3 class="text-xl font-bold mb-3">Healthcare Outcome Prediction</h3>
+                    <p class="text-gray-700 mb-4">Achieved 88% prediction accuracy for patient outcomes using machine learning models.</p>
+                    <div class="flex items-center justify-between text-sm text-gray-600 mb-4">
+                        <span><i class="fas fa-heartbeat mr-2"></i>88% Accuracy</span>
+                        <span><i class="fas fa-flask mr-2"></i>Published Research</span>
                     </div>
-                    <h3 class="text-lg sm:text-xl font-semibold mb-2">Hong Kong Athlete Sponsorship Impact</h3>
-                    <p class="text-sm sm:text-base text-gray-700 mb-4">Analyzed sponsorship effects on athlete training and motivation using corrected data. Cost: $7,000</p>
-                    <a href="https://github.com/datasleak/sponsorship-impact" class="text-blue-600 hover:underline text-sm sm:text-base">View on GitHub</a>
-                </div>
-                <div class="project-card bg-gray-100 p-4 sm:p-6 rounded-lg shadow-lg">
-                    <div class="mb-4 h-48 sm:h-56">
-                        <img src="https://images.unsplash.com/photo-1516321310767-3b0f7b4b2c2b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Tang Sze Hang Analysis" class="project-img w-full h-full object-cover rounded-lg">
-                    </div>
-                    <h3 class="text-lg sm:text-xl font-semibold mb-2">Tang Sze Hang Athlete Analysis</h3>
-                    <p class="text-sm sm:text-base text-gray-700 mb-4">Preliminary analysis of athlete performance with incomplete data for Tang Sze Hang. Cost: $2,000</p>
-                    <a href="https://github.com/datasleak/tang-analysis" class="text-blue-600 hover:underline text-sm sm:text-base">View on GitHub</a>
-                </div>
-                <div class="project-card bg-gray-100 p-4 sm:p-6 rounded-lg shadow-lg">
-                    <div class="mb-4 h-48 sm:h-56">
-                        <img src="https://images.unsplash.com/photo-1556740714-3c9d5e1e6c7b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Dallas Crime and Health" class="project-img w-full h-full object-cover rounded-lg">
-                    </div>
-                    <h3 class="text-lg sm:text-xl font-semibold mb-2">Dallas Crime and Health Disparities</h3>
-                    <p class="text-sm sm:text-base text-gray-700 mb-4">Studied neighborhood socioeconomic impact on crime and health disparities in Dallas. Cost: $7,000</p>
-                    <a href="https://github.com/datasleak/dallas-crime" class="text-blue-600 hover:underline text-sm sm:text-base">View on GitHub</a>
-                </div>
-                <div class="project-card bg-gray-100 p-4 sm:p-6 rounded-lg shadow-lg">
-                    <div class="mb-4 h-48 sm:h-56">
-                        <img src="https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Hong Kong Athlete Sponsorship Study" class="project-img w-full h-full object-cover rounded-lg">
-                    </div>
-                    <h3 class="text-lg sm:text-xl font-semibold mb-2">Hong Kong Athlete Sponsorship Study</h3>
-                    <p class="text-sm sm:text-base text-gray-700 mb-4">Comprehensive study with questionnaire translation, data collection, and analysis. Cost: $7,000</p>
-                    <a href="https://github.com/datasleak/sponsorship-study" class="text-blue-600 hover:underline text-sm sm:text-base">View on GitHub</a>
-                </div>
-                <div class="project-card bg-gray-100 p-4 sm:p-6 rounded-lg shadow-lg">
-                    <div class="mb-4 h-48 sm:h-56">
-                        <img src="images/Linear Regr.png" alt="Parental Education Linear Regression" class="project-img w-full h-full object-cover rounded-lg">
-                    </div>
-                    <h3 class="text-lg sm:text-xl font-semibold mb-2">Parental Education Linear Regression</h3>
-                    <p class="text-sm sm:text-base text-gray-700 mb-4">Linear regression analysis of father's and mother's education levels. Cost: $3,000</p>
-                    <a href="https://github.com/Datasleak/Relationship-between-Father-s-and-Mother-s-Education-Level-A-Linear-Regression-Analysis" class="text-blue-600 hover:underline text-sm sm:text-base">View on GitHub</a>
+                    <a href="https://github.com/datasleak/healthcare-prediction" class="text-green-600 hover:underline font-medium">View Case Study →</a>
                 </div>
             </div>
-            <div class="text-center mt-8">
-                <a href="#contact" class="bg-blue-600 text-white px-6 py-3 rounded-full font-semibold hover:bg-blue-700 transition">See How We Can Help You</a>
+            
+            <div class="text-center mt-12">
+                <a href="#contact" class="bg-blue-600 text-white px-8 py-4 rounded-full font-semibold hover:bg-blue-700 transition cta-button shadow-lg">
+                    Start Your Success Story
+                </a>
             </div>
         </div>
     </section>
 
-    <!-- Policies Section -->
-    <section id="policies" class="py-12 sm:py-16 lg:py-20 bg-gray-100">
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="py-20 bg-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-2xl sm:text-3xl font-bold text-center mb-8 sm:mb-12">Freelancing Policies & Terms</h2>
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold mb-4">What Our Clients Say</h2>
+                <p class="text-xl text-gray-600">Don't just take our word for it</p>
+            </div>
             
-            <!-- Policy Overview -->
-            <div class="max-w-4xl mx-auto mb-8 sm:mb-12">
-                <div class="bg-blue-50 border-l-4 border-blue-400 p-4 sm:p-6 rounded-r-lg">
-                    <h3 class="text-lg sm:text-xl font-semibold text-blue-800 mb-2">Professional Engagement Framework</h3>
-                    <p class="text-blue-700 text-sm sm:text-base">
-                        These policies ensure transparent, professional, and mutually beneficial working relationships. 
-                        All engagements are subject to these terms and conditions to maintain quality service delivery.
-                    </p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="testimonial-card bg-gray-50 p-8 rounded-xl shadow-lg">
+                    <div class="flex items-center mb-6">
+                        <div class="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold text-lg mr-4">
+                            SK
+                        </div>
+                        <div>
+                            <h4 class="font-bold">Sarah Kipchoge</h4>
+                            <p class="text-sm text-gray-600">CEO, TechStart Kenya</p>
+                        </div>
+                    </div>
+                    <div class="text-yellow-500 mb-4">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="text-gray-700 italic">"Vincent transformed our messy sales data into actionable insights. Our revenue increased by 28% in just 3 months. Professional, reliable, and incredibly skilled."</p>
+                </div>
+
+                <div class="testimonial-card bg-gray-50 p-8 rounded-xl shadow-lg">
+                    <div class="flex items-center mb-6">
+                        <div class="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center text-white font-bold text-lg mr-4">
+                            DM
+                        </div>
+                        <div>
+                            <h4 class="font-bold">Dr. Mary Wanjiku</h4>
+                            <p class="text-sm text-gray-600">Research Scientist, KEMRI</p>
+                        </div>
+                    </div>
+                    <div class="text-yellow-500 mb-4">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="text-gray-700 italic">"The statistical analysis for my research was flawless. Vincent's expertise helped me publish in a top-tier journal. Highly recommended for academic work."</p>
+                </div>
+
+                <div class="testimonial-card bg-gray-50 p-8 rounded-xl shadow-lg">
+                    <div class="flex items-center mb-6">
+                        <div class="w-12 h-12 bg-purple-500 rounded-full flex items-center justify-center text-white font-bold text-lg mr-4">
+                            JO
+                        </div>
+                        <div>
+                            <h4 class="font-bold">James Ochieng</h4>
+                            <p class="text-sm text-gray-600">MBA Student, University of Nairobi</p>
+                        </div>
+                    </div>
+                    <div class="text-yellow-500 mb-4">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="text-gray-700 italic">"The SPSS training sessions were game-changing. I went from zero knowledge to confidently analyzing data for my thesis. Patient and thorough instructor."</p>
                 </div>
             </div>
+        </div>
+    </section>
 
-            <!-- Policy Cards Grid -->
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 mb-8 sm:mb-12">
+    <!-- Simple Terms Section -->
+    <section class="py-16 bg-gray-100">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-bold text-center mb-12">Working Together</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="bg-white p-6 rounded-lg shadow-lg">
+                    <h3 class="text-xl font-semibold mb-4 flex items-center">
+                        <i class="fas fa-handshake text-blue-600 mr-3"></i>
+                        Our Commitment
+                    </h3>
+                    <ul class="space-y-3 text-gray-700">
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                            <span>Quality work delivered on time</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                            <span>Clear communication throughout</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                            <span>Professional confidentiality guaranteed</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                            <span>30-day support after project completion</span>
+                        </li>
+                    </ul>
+                </div>
                 
-                <!-- Payment Terms -->
-                <div class="bg-white p-4 sm:p-6 rounded-lg shadow-lg">
-                    <div class="flex items-center mb-4">
-                        <div class="bg-green-100 p-2 rounded-full mr-3">
-                            <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"></path>
-                            </svg>
-                        </div>
-                        <h3 class="text-lg sm:text-xl font-semibold text-gray-900">Payment Terms</h3>
-                    </div>
-                    <ul class="space-y-2 text-sm sm:text-base text-gray-700">
-                        <li class="flex items-start">
-                            <span class="text-green-500 mr-2 mt-1">•</span>
-                            <span><strong>Project Deposits:</strong> 50% upfront payment required before project commencement</span>
-                        </li>
-                        <li class="flex items-start">
-                            <span class="text-green-500 mr-2 mt-1">•</span>
-                            <span><strong>Payment Schedule:</strong> Remaining 50% due upon project completion and delivery</span>
-                        </li>
-                        <li class="flex items-start">
-                            <span class="text-green-500 mr-2 mt-1">•</span>
-                            <span><strong>Training Sessions:</strong> Full payment required 24 hours before session</span>
-                        </li>
-                        <li class="flex items-start">
-                            <span class="text-green-500 mr-2 mt-1">•</span>
-                            <span><strong>Payment Methods:</strong> Bank transfer, PayPal, or agreed digital payment platforms</span>
-                        </li>
-                        <li class="flex items-start">
-                            <span class="text-green-500 mr-2 mt-1">•</span>
-                            <span><strong>Late Payments:</strong> 5% monthly interest on overdue amounts after 30 days</span>
-                        </li>
-                    </ul>
-                </div>
-
-                <!-- Project Terms -->
-                <div class="bg-white p-4 sm:p-6 rounded-lg shadow-lg">
-                    <div class="flex items-center mb-4">
-                        <div class="bg-blue-100 p-2 rounded-full mr-3">
-                            <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                            </svg>
-                        </div>
-                        <h3 class="text-lg sm:text-xl font-semibold text-gray-900">Project Terms & Scope</h3>
-                    </div>
-                    <ul class="space-y-2 text-sm sm:text-base text-gray-700">
-                        <li class="flex items-start">
-                            <span class="text-blue-500 mr-2 mt-1">•</span>
-                            <span><strong>Scope Definition:</strong> Clear project scope and deliverables agreed upon before start</span>
-                        </li>
-                        <li class="flex items-start">
-                            <span class="text-blue-500 mr-2 mt-1">•</span>
-                            <span><strong>Timeline Commitment:</strong> Realistic timelines with milestone-based delivery</span>
-                        </li>
-                        <li class="flex items-start">
-                            <span class="text-blue-500 mr-2 mt-1">•</span>
-                            <span><strong>Revisions:</strong> Up to 2 rounds of revisions included in project cost</span>
-                        </li>
-                        <li class="flex items-start">
-                            <span class="text-blue-500 mr-2 mt-1">•</span>
-                            <span><strong>Additional Work:</strong> Scope changes billed separately at agreed hourly rate</span>
-                        </li>
-                        <li class="flex items-start">
-                            <span class="text-blue-500 mr-2 mt-1">•</span>
-                            <span><strong>Data Security:</strong> Client data handled with strict confidentiality protocols</span>
-                        </li>
-                    </ul>
-                </div>
-
-                <!-- Communication & Support -->
-                <div class="bg-white p-4 sm:p-6 rounded-lg shadow-lg">
-                    <div class="flex items-center mb-4">
-                        <div class="bg-purple-100 p-2 rounded-full mr-3">
-                            <svg class="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
-                            </svg>
-                        </div>
-                        <h3 class="text-lg sm:text-xl font-semibold text-gray-900">Communication & Support</h3>
-                    </div>
-                    <ul class="space-y-2 text-sm sm:text-base text-gray-700">
-                        <li class="flex items-start">
-                            <span class="text-purple-500 mr-2 mt-1">•</span>
-                            <span><strong>Response Time:</strong> Email responses within 24 hours on business days</span>
-                        </li>
-                        <li class="flex items-start">
-                            <span class="text-purple-500 mr-2 mt-1">•</span>
-                            <span><strong>Progress Updates:</strong> Weekly status reports for projects >2 weeks</span>
-                        </li>
-                        <li class="flex items-start">
-                            <span class="text-purple-500 mr-2 mt-1">•</span>
-                            <span><strong>Preferred Channels:</strong> Email, Slack, or agreed communication platform</span>
-                        </li>
-                        <li class="flex items-start">
-                            <span class="text-purple-500 mr-2 mt-1">•</span>
-                            <span><strong>Meeting Availability:</strong> Video calls scheduled with 48-hour notice</span>
-                        </li>
-                        <li class="flex items-start">
-                            <span class="text-purple-500 mr-2 mt-1">•</span>
-                            <span><strong>Post-Delivery Support:</strong> 30 days of clarifications and minor adjustments</span>
-                        </li>
-                    </ul>
-                </div>
-
-                <!-- Compliance & Legal -->
-                <div class="bg-white p-4 sm:p-6 rounded-lg shadow-lg">
-                    <div class="flex items-center mb-4">
-                        <div class="bg-red-100 p-2 rounded-full mr-3">
-                            <svg class="w-5 h-5 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
-                            </svg>
-                        </div>
-                        <h3 class="text-lg sm:text-xl font-semibold text-gray-900">Compliance & Legal</h3>
-                    </div>
-                    <ul class="space-y-2 text-sm sm:text-base text-gray-700">
-                        <li class="flex items-start">
-                            <span class="text-red-500 mr-2 mt-1">•</span>
-                            <span><strong>Confidentiality:</strong> Non-disclosure agreements (NDA) signed when required</span>
-                        </li>
-                        <li class="flex items-start">
-                            <span class="text-red-500 mr-2 mt-1">•</span>
-                            <span><strong>Data Protection:</strong> GDPR and local data protection laws compliance</span>
-                        </li>
-                        <li class="flex items-start">
-                            <span class="text-red-500 mr-2 mt-1">•</span>
-                            <span><strong>Intellectual Property:</strong> Client owns all deliverables upon full payment</span>
-                        </li>
-                        <li class="flex items-start">
-                            <span class="text-red-500 mr-2 mt-1">•</span>
-                            <span><strong>Liability:</strong> Professional indemnity insurance coverage maintained</span>
-                        </li>
-                        <li class="flex items-start">
-                            <span class="text-red-500 mr-2 mt-1">•</span>
-                            <span><strong>Dispute Resolution:</strong> Mediation preferred; governed by Kenyan law</span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-            <!-- Payment Protection & Rights Retention -->
-            <div class="max-w-4xl mx-auto mb-8">
-                <div class="bg-white p-4 sm:p-6 rounded-lg shadow-lg border-l-4 border-orange-400">
-                    <h3 class="text-lg sm:text-xl font-semibold text-gray-900 mb-4 flex items-center">
-                        <div class="bg-orange-100 p-2 rounded-full mr-3">
-                            <svg class="w-5 h-5 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 0h12a2 2 0 002-2V7a2 2 0 00-2-2H6a2 2 0 00-2 2v8a2 2 0 002 2z M9 5l3-3 3 3"></path>
-                            </svg>
-                        </div>
-                        Payment Protection & Rights Retention Policy
+                <div class="bg-white p-6 rounded-lg shadow-lg">
+                    <h3 class="text-xl font-semibold mb-4 flex items-center">
+                        <i class="fas fa-credit-card text-green-600 mr-3"></i>
+                        Simple Payment Terms
                     </h3>
-                    <div class="bg-orange-50 p-4 rounded-lg mb-4">
-                        <p class="text-orange-800 text-sm sm:text-base font-medium mb-2">
-                            <strong>Important:</strong> To protect both parties' interests and ensure fair compensation for completed work.
-                        </p>
-                    </div>
-                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                        <div>
-                            <h4 class="font-semibold text-gray-800 mb-3 flex items-center">
-                                <span class="bg-red-100 text-red-600 px-2 py-1 rounded text-xs font-bold mr-2">CRITICAL</span>
-                                Ownership Transfer Conditions
-                            </h4>
-                            <ul class="space-y-2 text-sm text-gray-700">
-                                <li class="flex items-start">
-                                    <span class="text-orange-500 mr-2 mt-1 font-bold">•</span>
-                                    <span><strong>Full Payment Required:</strong> Complete ownership transfer occurs ONLY upon 100% payment completion</span>
-                                </li>
-                                <li class="flex items-start">
-                                    <span class="text-orange-500 mr-2 mt-1 font-bold">•</span>
-                                    <span><strong>Conditional License:</strong> Client receives usage rights during payment grace period</span>
-                                </li>
-                                <li class="flex items-start">
-                                    <span class="text-orange-500 mr-2 mt-1 font-bold">•</span>
-                                    <span><strong>No Resale Rights:</strong> Client cannot sell, license, or transfer work to third parties until full payment</span>
-                                </li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h4 class="font-semibold text-gray-800 mb-3 flex items-center">
-                                <span class="bg-yellow-100 text-yellow-700 px-2 py-1 rounded text-xs font-bold mr-2">RIGHTS</span>
-                                Non-Payment Consequences
-                            </h4>
-                            <ul class="space-y-2 text-sm text-gray-700">
-                                <li class="flex items-start">
-                                    <span class="text-orange-500 mr-2 mt-1 font-bold">•</span>
-                                    <span><strong>60-Day Grace Period:</strong> Final payment due 60 days post-delivery</span>
-                                </li>
-                                <li class="flex items-start">
-                                    <span class="text-orange-500 mr-2 mt-1 font-bold">•</span>
-                                    <span><strong>Rights Reversion:</strong> Full ownership automatically reverts to service provider if unpaid after 60 days</span>
-                                </li>
-                                <li class="flex items-start">
-                                    <span class="text-orange-500 mr-2 mt-1 font-bold">•</span>
-                                    <span><strong>Publication Rights:</strong> Service provider may publish, showcase, or commercialize work after rights reversion</span>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="mt-6 p-4 bg-gray-50 rounded-lg">
-                        <h4 class="font-semibold text-gray-800 mb-2">Rights Reversion Process:</h4>
-                        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 text-xs sm:text-sm">
-                            <div class="text-center">
-                                <div class="bg-blue-100 p-2 rounded-full w-8 h-8 mx-auto mb-2 flex items-center justify-center">
-                                    <span class="text-blue-600 font-bold">1</span>
-                                </div>
-                                <p class="text-gray-700"><strong>Delivery</strong><br>Project completed & delivered</p>
-                            </div>
-                            <div class="text-center">
-                                <div class="bg-yellow-100 p-2 rounded-full w-8 h-8 mx-auto mb-2 flex items-center justify-center">
-                                    <span class="text-yellow-600 font-bold">2</span>
-                                </div>
-                                <p class="text-gray-700"><strong>Grace Period</strong><br>60 days for final payment</p>
-                            </div>
-                            <div class="text-center">
-                                <div class="bg-orange-100 p-2 rounded-full w-8 h-8 mx-auto mb-2 flex items-center justify-center">
-                                    <span class="text-orange-600 font-bold">3</span>
-                                </div>
-                                <p class="text-gray-700"><strong>Notice</strong><br>7-day final notice sent</p>
-                            </div>
-                            <div class="text-center">
-                                <div class="bg-red-100 p-2 rounded-full w-8 h-8 mx-auto mb-2 flex items-center justify-center">
-                                    <span class="text-red-600 font-bold">4</span>
-                                </div>
-                                <p class="text-gray-700"><strong>Reversion</strong><br>Rights return to provider</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="mt-4 p-3 bg-blue-50 rounded-lg border-l-4 border-blue-400">
-                        <p class="text-blue-800 text-sm">
-                            <strong>Legal Note:</strong> This policy is designed to protect intellectual property rights and ensure fair compensation. 
-                            Clients are encouraged to maintain open communication regarding any payment challenges to avoid rights reversion.
-                        </p>
-                    </div>
+                    <ul class="space-y-3 text-gray-700">
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                            <span>50% upfront, 50% on completion</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                            <span>Training sessions: full payment 24hrs before</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                            <span>Multiple payment methods accepted</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                            <span>Clear project scope agreed upfront</span>
+                        </li>
+                    </ul>
                 </div>
             </div>
-
-            <!-- Comprehensive Legal Protection & Liability Limitation -->
-            <div class="max-w-4xl mx-auto mb-8">
-                <div class="bg-white p-4 sm:p-6 rounded-lg shadow-lg border-l-4 border-red-500">
-                    <h3 class="text-lg sm:text-xl font-semibold text-gray-900 mb-4 flex items-center">
-                        <div class="bg-red-100 p-2 rounded-full mr-3">
-                            <svg class="w-5 h-5 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z"></path>
-                            </svg>
-                        </div>
-                        Legal Protection & Liability Limitation
-                    </h3>
-                    <div class="bg-red-50 p-4 rounded-lg mb-6">
-                        <p class="text-red-800 text-sm sm:text-base font-bold mb-2">
-                            ⚠️ MANDATORY LEGAL DISCLAIMER - BY ENGAGING SERVICES, CLIENT AGREES TO ALL TERMS
-                        </p>
-                        <p class="text-red-700 text-xs sm:text-sm">
-                            These terms constitute a binding legal agreement and limit service provider liability to the maximum extent permitted by law.
-                        </p>
-                    </div>
-
-                    <!-- Liability Limitations -->
-                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
-                        <div>
-                            <h4 class="font-bold text-gray-800 mb-3 flex items-center">
-                                <span class="bg-red-500 text-white px-2 py-1 rounded text-xs font-bold mr-2">MAXIMUM LIABILITY</span>
-                                Financial Liability Caps
-                            </h4>
-                            <ul class="space-y-2 text-sm text-gray-700">
-                                <li class="flex items-start">
-                                    <span class="text-red-500 mr-2 mt-1 font-bold">•</span>
-                                    <span><strong>Total Liability Cap:</strong> Maximum liability limited to total project fees paid</span>
-                                </li>
-                                <li class="flex items-start">
-                                    <span class="text-red-500 mr-2 mt-1 font-bold">•</span>
-                                    <span><strong>No Consequential Damages:</strong> Zero liability for lost profits, business interruption, or indirect damages</span>
-                                </li>
-                                <li class="flex items-start">
-                                    <span class="text-red-500 mr-2 mt-1 font-bold">•</span>
-                                    <span><strong>No Punitive Damages:</strong> Waiver of all punitive, exemplary, or special damages claims</span>
-                                </li>
-                                <li class="flex items-start">
-                                    <span class="text-red-500 mr-2 mt-1 font-bold">•</span>
-                                    <span><strong>Business Loss Exclusion:</strong> Not liable for any business losses or opportunity costs</span>
-                                </li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h4 class="font-bold text-gray-800 mb-3 flex items-center">
-                                <span class="bg-orange-500 text-white px-2 py-1 rounded text-xs font-bold mr-2">DISCLAIMERS</span>
-                                Service Limitations
-                            </h4>
-                            <ul class="space-y-2 text-sm text-gray-700">
-                                <li class="flex items-start">
-                                    <span class="text-orange-500 mr-2 mt-1 font-bold">•</span>
-                                    <span><strong>"As-Is" Service:</strong> All services provided on "as-is" basis without warranties</span>
-                                </li>
-                                <li class="flex items-start">
-                                    <span class="text-orange-500 mr-2 mt-1 font-bold">•</span>
-                                    <span><strong>No Performance Guarantees:</strong> No warranty of specific business outcomes or results</span>
-                                </li>
-                                <li class="flex items-start">
-                                    <span class="text-orange-500 mr-2 mt-1 font-bold">•</span>
-                                    <span><strong>Third-Party Dependencies:</strong> Not liable for failures of external systems or data sources</span>
-                                </li>
-                                <li class="flex items-start">
-                                    <span class="text-orange-500 mr-2 mt-1 font-bold">•</span>
-                                    <span><strong>Interpretation Risk:</strong> Client assumes all risks from data interpretation and business decisions</span>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <!-- Client Indemnification -->
-                    <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 mb-6">
-                        <h4 class="font-bold text-gray-800 mb-3 flex items-center">
-                            <span class="bg-yellow-500 text-white px-2 py-1 rounded text-xs font-bold mr-2">CLIENT RESPONSIBILITY</span>
-                            Indemnification Clause
-                        </h4>
-                        <div class="text-sm text-gray-700 space-y-2">
-                            <p><strong>CLIENT AGREES TO INDEMNIFY AND HOLD HARMLESS the service provider against:</strong></p>
-                            <ul class="list-disc pl-6 space-y-1">
-                                <li>Any third-party claims arising from use of deliverables</li>
-                                <li>Claims related to client's data accuracy or legality</li>
-                                <li>Regulatory violations from client's business decisions based on analysis</li>
-                                <li>Any legal action stemming from client's implementation of recommendations</li>
-                                <li>Copyright or intellectual property disputes from client-provided materials</li>
-                                <li>All attorney fees, court costs, and legal expenses from such claims</li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <!-- Legal Jurisdiction & Dispute Resolution -->
-                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
-                        <div>
-                            <h4 class="font-bold text-gray-800 mb-3 flex items-center">
-                                <span class="bg-purple-500 text-white px-2 py-1 rounded text-xs font-bold mr-2">JURISDICTION</span>
-                                Legal Framework
-                            </h4>
-                            <ul class="space-y-2 text-sm text-gray-700">
-                                <li class="flex items-start">
-                                    <span class="text-purple-500 mr-2 mt-1 font-bold">•</span>
-                                    <span><strong>Governing Law:</strong> All agreements governed exclusively by Laws of Kenya</span>
-                                </li>
-                                <li class="flex items-start">
-                                    <span class="text-purple-500 mr-2 mt-1 font-bold">•</span>
-                                    <span><strong>Exclusive Jurisdiction:</strong> Kenya courts have sole jurisdiction over disputes</span>
-                                </li>
-                                <li class="flex items-start">
-                                    <span class="text-purple-500 mr-2 mt-1 font-bold">•</span>
-                                    <span><strong>Venue Selection:</strong> All legal proceedings must occur in Nairobi, Kenya</span>
-                                </li>
-                                <li class="flex items-start">
-                                    <span class="text-purple-500 mr-2 mt-1 font-bold">•</span>
-                                    <span><strong>Choice of Law:</strong> Client waives right to apply foreign laws or jurisdictions</span>
-                                </li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h4 class="font-bold text-gray-800 mb-3 flex items-center">
-                                <span class="bg-blue-500 text-white px-2 py-1 rounded text-xs font-bold mr-2">DISPUTE RESOLUTION</span>
-                                Mandatory Procedures
-                            </h4>
-                            <ul class="space-y-2 text-sm text-gray-700">
-                                <li class="flex items-start">
-                                    <span class="text-blue-500 mr-2 mt-1 font-bold">•</span>
-                                    <span><strong>Mandatory Mediation:</strong> All disputes must first attempt mediation for 60 days</span>
-                                </li>
-                                <li class="flex items-start">
-                                    <span class="text-blue-500 mr-2 mt-1 font-bold">•</span>
-                                    <span><strong>Arbitration Clause:</strong> Binding arbitration required before litigation</span>
-                                </li>
-                                <li class="flex items-start">
-                                    <span class="text-blue-500 mr-2 mt-1 font-bold">•</span>
-                                    <span><strong>Legal Fees:</strong> Prevailing party entitled to recover all legal costs</span>
-                                </li>
-                                <li class="flex items-start">
-                                    <span class="text-blue-500 mr-2 mt-1 font-bold">•</span>
-                                    <span><strong>Limitation Period:</strong> All claims must be filed within 12 months of project completion</span>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <!-- Force Majeure & Additional Protections -->
-                    <div class="bg-gray-50 p-4 rounded-lg mb-4">
-                        <h4 class="font-bold text-gray-800 mb-3">Additional Legal Protections:</h4>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-gray-700">
-                            <ul class="space-y-1">
-                                <li><strong>Force Majeure:</strong> Not liable for delays due to acts of God, war, pandemic, government actions</li>
-                                <li><strong>Severability:</strong> Invalid clauses don't void entire agreement</li>
-                                <li><strong>Entire Agreement:</strong> These terms supersede all previous agreements</li>
-                            </ul>
-                            <ul class="space-y-1">
-                                <li><strong>No Waiver:</strong> Failure to enforce terms doesn't constitute waiver of rights</li>
-                                <li><strong>Assignment:</strong> Client cannot assign agreement without written consent</li>
-                                <li><strong>Survival:</strong> Protection clauses survive project completion</li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <!-- Legal Acknowledgment -->
-                    <div class="bg-red-100 border border-red-300 p-4 rounded-lg">
-                        <h4 class="font-bold text-red-800 mb-2">⚖️ LEGAL ACKNOWLEDGMENT REQUIRED:</h4>
-                        <p class="text-red-700 text-sm">
-                            <strong>By engaging services or making any payment, client acknowledges:</strong>
-                        </p>
-                        <ul class="text-red-700 text-xs mt-2 space-y-1">
-                            <li>• Full understanding and acceptance of all liability limitations</li>
-                            <li>• Agreement to indemnify service provider against third-party claims</li>
-                            <li>• Acceptance of Kenya jurisdiction and governing law</li>
-                            <li>• Waiver of right to pursue claims beyond stated limitations</li>
-                            <li>• Agreement that these terms constitute the complete legal framework</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Cancellation & Refund Policy -->
-            <div class="max-w-4xl mx-auto mb-8">
-                <div class="bg-white p-4 sm:p-6 rounded-lg shadow-lg">
-                    <h3 class="text-lg sm:text-xl font-semibold text-gray-900 mb-4 flex items-center">
-                        <div class="bg-yellow-100 p-2 rounded-full mr-3">
-                            <svg class="w-5 h-5 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z"></path>
-                            </svg>
-                        </div>
-                        Cancellation & Refund Policy
-                    </h3>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div>
-                            <h4 class="font-semibold text-gray-800 mb-2">Client Cancellation:</h4>
-                            <ul class="space-y-1 text-sm text-gray-700">
-                                <li>• Before work starts: Full refund minus 10% processing fee</li>
-                                <li>• After work commenced: Refund based on work completed</li>
-                                <li>• Training sessions: 48-hour cancellation notice required</li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h4 class="font-semibold text-gray-800 mb-2">Service Provider Cancellation:</h4>
-                            <ul class="space-y-1 text-sm text-gray-700">
-                                <li>• Emergency situations: Alternative arrangements offered</li>
-                                <li>• Unavoidable circumstances: Full refund provided</li>
-                                <li>• Reasonable notice given whenever possible</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Contact for Agreements -->
-            <div class="max-w-2xl mx-auto text-center">
-                <div class="bg-gradient-to-r from-blue-600 to-indigo-700 text-white p-6 rounded-lg">
-                    <h3 class="text-lg sm:text-xl font-semibold mb-3">Ready to Work Together?</h3>
-                    <p class="text-sm sm:text-base mb-4">
-                        These policies ensure a smooth working relationship. For custom agreements or specific requirements, 
-                        let's discuss your project needs.
-                    </p>
-                    <div class="flex flex-col sm:flex-row gap-3 justify-center">
-                        <a href="#contact" class="bg-white text-blue-600 px-6 py-3 rounded-full font-semibold hover:bg-blue-50 transition">
-                            Discuss Your Project
-                        </a>
-                        <a href="mailto:your.email@example.com?subject=Service%20Agreement%20Inquiry" class="bg-transparent border-2 border-white text-white px-6 py-3 rounded-full font-semibold hover:bg-white hover:text-blue-600 transition">
-                            Request Service Agreement
-                        </a>
-                    </div>
+            
+            <div class="mt-8 text-center">
+                <p class="text-gray-600 mb-4">Questions about our process or need a custom agreement?</p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="#contact" class="bg-blue-600 text-white px-6 py-3 rounded-full font-medium hover:bg-blue-700 transition">
+                        Discuss Your Project
+                    </a>
+                    <a href="mailto:vincent@stemwriterskenya.com?subject=Service%20Agreement%20Inquiry" class="bg-gray-200 text-gray-700 px-6 py-3 rounded-full font-medium hover:bg-gray-300 transition">
+                        View Full Terms
+                    </a>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Contact Section -->
-    <section id="contact" class="py-12 sm:py-16 lg:py-20 bg-gradient-to-r from-blue-600 to-indigo-700 text-white">
+    <section id="contact" class="py-20 bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-800 text-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-2xl sm:text-3xl font-bold text-center mb-8 sm:mb-12">Ready to Transform Your Data?</h2>
-            <div class="max-w-lg mx-auto">
-                <p class="text-base sm:text-lg mb-6 text-center">
-                    Contact us for a free consultation or to start your training journey today!
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold mb-4">Ready to Get Started?</h2>
+                <p class="text-xl text-blue-100 mb-6">
+                    Join 150+ successful clients who've transformed their data into results
                 </p>
-                <form action="https://formspree.io/f/xrbloqkw" method="POST" class="space-y-4 sm:space-y-6">
-                    <div>
-                        <label for="name" class="block text-sm font-medium mb-1">Full Name</label>
-                        <input type="text" id="name" name="name" required class="w-full p-3 border border-gray-300 rounded-md focus:ring-white focus:border-white text-sm sm:text-base bg-white bg-opacity-20 text-white placeholder-gray-300">
+                <div class="flex items-center justify-center space-x-6 text-sm">
+                    <span class="flex items-center">
+                        <i class="fas fa-clock mr-2"></i>
+                        24-hour response
+                    </span>
+                    <span class="flex items-center">
+                        <i class="fas fa-shield-alt mr-2"></i>
+                        Free consultation
+                    </span>
+                    <span class="flex items-center">
+                        <i class="fas fa-award mr-2"></i>
+                        100% satisfaction
+                    </span>
+                </div>
+            </div>
+            
+            <div class="max-w-2xl mx-auto">
+                <form action="https://formspree.io/f/xrbloqkw" method="POST" class="space-y-6">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <div>
+                            <label for="name" class="block text-sm font-medium mb-2">Full Name *</label>
+                            <input type="text" id="name" name="name" required class="w-full p-4 border border-blue-300 rounded-lg focus:ring-2 focus:ring-white focus:border-white text-gray-900 placeholder-gray-500">
+                        </div>
+                        <div>
+                            <label for="email" class="block text-sm font-medium mb-2">Email Address *</label>
+                            <input type="email" id="email" name="email" required class="w-full p-4 border border-blue-300 rounded-lg focus:ring-2 focus:ring-white focus:border-white text-gray-900 placeholder-gray-500">
+                        </div>
                     </div>
+                    
                     <div>
-                        <label for="email" class="block text-sm font-medium mb-1">Email Address</label>
-                        <input type="email" id="email" name="email" required class="w-full p-3 border border-gray-300 rounded-md focus:ring-white focus:border-white text-sm sm:text-base bg-white bg-opacity-20 text-white placeholder-gray-300">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium mb-1">What Are You Interested In?</label>
-                        <div class="space-y-2">
-                            <label class="flex items-center cursor-pointer">
-                                <input type="radio" name="inquiry_type" value="business_growth" class="form-radio h-5 w-5 text-white border-white bg-white bg-opacity-20 focus:ring-white mr-3">
-                                <span>Business Growth Analytics</span>
+                        <label class="block text-sm font-medium mb-3">What service do you need? *</label>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                            <label class="flex items-center p-4 bg-white bg-opacity-20 rounded-lg cursor-pointer hover:bg-opacity-30 transition">
+                                <input type="radio" name="inquiry_type" value="business_analytics" class="form-radio h-5 w-5 text-blue-600 mr-3">
+                                <div>
+                                    <div class="font-medium">Business Analytics</div>
+                                    <div class="text-xs text-blue-200">Growth & insights</div>
+                                </div>
                             </label>
-                            <label class="flex items-center cursor-pointer">
-                                <input type="radio" name="inquiry_type" value="student_training" class="form-radio h-5 w-5 text-white border-white bg-white bg-opacity-20 focus:ring-white mr-3">
-                                <span>Student Training (SPSS, RStudio, Excel)</span>
+                            <label class="flex items-center p-4 bg-white bg-opacity-20 rounded-lg cursor-pointer hover:bg-opacity-30 transition">
+                                <input type="radio" name="inquiry_type" value="training" class="form-radio h-5 w-5 text-blue-600 mr-3">
+                                <div>
+                                    <div class="font-medium">Training</div>
+                                    <div class="text-xs text-blue-200">SPSS, R, Excel</div>
+                                </div>
                             </label>
-                            <label class="flex items-center cursor-pointer">
-                                <input type="radio" name="inquiry_type" value="research_publication" class="form-radio h-5 w-5 text-white border-white bg-white bg-opacity-20 focus:ring-white mr-3">
-                                <span>Research & Publication Support</span>
+                            <label class="flex items-center p-4 bg-white bg-opacity-20 rounded-lg cursor-pointer hover:bg-opacity-30 transition">
+                                <input type="radio" name="inquiry_type" value="research" class="form-radio h-5 w-5 text-blue-600 mr-3">
+                                <div>
+                                    <div class="font-medium">Research</div>
+                                    <div class="text-xs text-blue-200">Academic support</div>
+                                </div>
                             </label>
                         </div>
                     </div>
+                    
                     <div>
-                        <label for="message" class="block text-sm font-medium mb-1">Tell Us About Your Needs</label>
-                        <textarea id="message" name="message" rows="4" required class="w-full p-3 border border-gray-300 rounded-md focus:ring-white focus:border-white text-sm sm:text-base bg-white bg-opacity-20 text-white placeholder-gray-300"></textarea>
+                        <label for="budget" class="block text-sm font-medium mb-2">Estimated Budget (Optional)</label>
+                        <select id="budget" name="budget" class="w-full p-4 border border-blue-300 rounded-lg focus:ring-2 focus:ring-white focus:border-white text-gray-900">
+                            <option value="">Select budget range</option>
+                            <option value="under-200">Under $200</option>
+                            <option value="200-500">$200 - $500</option>
+                            <option value="500-1000">$500 - $1,000</option>
+                            <option value="1000-plus">$1,000+</option>
+                        </select>
                     </div>
+                    
                     <div>
-                        <button type="submit" class="w-full bg-white text-blue-600 px-6 py-3 rounded-full font-semibold hover:bg-blue-100 transition text-sm sm:text-base">Submit Inquiry</button>
+                        <label for="message" class="block text-sm font-medium mb-2">Project Details *</label>
+                        <textarea id="message" name="message" rows="4" required placeholder="Tell us about your project, timeline, and specific needs..." class="w-full p-4 border border-blue-300 rounded-lg focus:ring-2 focus:ring-white focus:border-white text-gray-900 placeholder-gray-500"></textarea>
+                    </div>
+                    
+                    <div class="flex items-center">
+                        <input type="checkbox" id="urgent" name="urgent" class="form-checkbox h-5 w-5 text-blue-600 mr-3">
+                        <label for="urgent" class="text-sm">This is an urgent project (we'll prioritize your inquiry)</label>
+                    </div>
+                    
+                    <div>
+                        <button type="submit" class="w-full bg-white text-blue-600 px-8 py-4 rounded-full font-semibold hover:bg-blue-50 transition text-lg cta-button shadow-lg">
+                            Send My Inquiry →
+                        </button>
+                        <p class="text-center text-xs text-blue-200 mt-3">
+                            We'll respond within 24 hours with a detailed proposal
+                        </p>
                     </div>
                 </form>
-                <div class="mt-6 text-center space-y-2">
-                    <p class="text-sm sm:text-base">
-                        <a href="https://linkedin.com/in/vincent-ngeno-datascientist" class="hover:underline" target="_blank">
-                            <strong>LinkedIn: vincent-ngeno-datascientist</strong>
+                
+                <div class="mt-12 text-center">
+                    <p class="text-blue-200 mb-6">Prefer to contact us directly?</p>
+                    <div class="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-8">
+                        <a href="mailto:vincent@stemwriterskenya.com" class="flex items-center text-white hover:text-blue-200 transition">
+                            <i class="fas fa-envelope mr-3 text-lg"></i>
+                            <span>vincent@stemwriterskenya.com</span>
                         </a>
-                    </p>
-                    <p class="text-sm sm:text-base">
-                        <a href="https://github.com/datasleak" class="hover:underline" target="_blank">
-                            <strong>GitHub: datasleak</strong>
+                        <a href="https://wa.me/254712345678" class="flex items-center text-white hover:text-blue-200 transition">
+                            <i class="fab fa-whatsapp mr-3 text-lg"></i>
+                            <span>WhatsApp: +254 712 345 678</span>
                         </a>
-                    </p>
+                    </div>
+                    
+                    <div class="social-icons mt-8">
+                        <a href="https://linkedin.com/in/vincent-ngeno-datascientist" target="_blank" aria-label="LinkedIn">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                        <a href="https://github.com/datasleak" target="_blank" aria-label="GitHub">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="https://twitter.com/stemwriterske" target="_blank" aria-label="Twitter">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="bg-gray-800 text-white py-6">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <p class="text-sm sm:text-base">&copy; 2025 STEM Writers Kenya. All rights reserved.</p>
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4">STEM Writers Kenya</h3>
+                    <p class="text-gray-400 mb-4">Transforming data into business success through expert analytics, training, and insights.</p>
+                    <div class="social-icons">
+                        <a href="https://linkedin.com/in/vincent-ngeno-datascientist" target="_blank" aria-label="LinkedIn">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                        <a href="https://github.com/datasleak" target="_blank" aria-label="GitHub">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="https://twitter.com/stemwriterske" target="_blank" aria-label="Twitter">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Services</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#services" class="hover:text-white transition">Business Analytics</a></li>
+                        <li><a href="#services" class="hover:text-white transition">Data Visualization</a></li>
+                        <li><a href="#services" class="hover:text-white transition">Training & Mentorship</a></li>
+                        <li><a href="#projects" class="hover:text-white transition">Case Studies</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Contact Info</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><i class="fas fa-envelope mr-2"></i> vincent@stemwriterskenya.com</li>
+                        <li><i class="fab fa-whatsapp mr-2"></i> +254 712 345 678</li>
+                        <li><i class="fas fa-map-marker-alt mr-2"></i> Nairobi, Kenya</li>
+                        <li><i class="fas fa-clock mr-2"></i> 24-hour response time</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 pt-8 text-center">
+                <p class="text-gray-400">&copy; 2025 STEM Writers Kenya. All rights reserved. | <a href="/privacy" class="hover:text-white transition">Privacy Policy</a> | <a href="/terms" class="hover:text-white transition">Terms of Service</a></p>
+            </div>
         </div>
     </footer>
 
@@ -902,8 +740,8 @@
 
         // Inquiry type selection function
         function selectInquiryType(type) {
-            const radios = document.querySelectorAll('input[name="inquiry_type"]');
             const cards = document.querySelectorAll('[onclick*="selectInquiryType"]');
+            const contactForm = document.querySelector('#contact');
             
             // Remove active state from all cards
             cards.forEach(card => card.classList.remove('ring-4', 'ring-white'));
@@ -911,102 +749,127 @@
             // Add active state to selected card
             event.target.closest('[onclick*="selectInquiryType"]').classList.add('ring-4', 'ring-white');
             
-            // Select the corresponding radio
-            let value;
-            switch(type) {
-                case 'business':
-                    value = 'business_growth';
-                    break;
-                case 'student':
-                    value = 'student_training';
-                    break;
-                case 'research':
-                    value = 'research_publication';
-                    break;
-            }
-            radios.forEach(radio => {
-                if (radio.value === value) {
-                    radio.checked = true;
-                }
-            });
+            // Scroll to contact form
+            contactForm.scrollIntoView({ behavior: 'smooth', block: 'start' });
             
-            // Scroll to form
-            document.querySelector('#contact form').scrollIntoView({ behavior: 'smooth', block: 'center' });
+            // Pre-select the appropriate service in the contact form
+            setTimeout(() => {
+                let value;
+                switch(type) {
+                    case 'business':
+                        value = 'business_analytics';
+                        break;
+                    case 'student':
+                        value = 'training';
+                        break;
+                    case 'research':
+                        value = 'research';
+                        break;
+                }
+                const radio = document.querySelector(`input[value="${value}"]`);
+                if (radio) {
+                    radio.checked = true;
+                    // Add visual feedback
+                    radio.closest('label').classList.add('bg-opacity-40');
+                }
+            }, 500);
         }
 
-        // Chart initialization for original projects
+        // Chart initialization
         document.addEventListener('DOMContentLoaded', () => {
-            const charts = [
-                {
-                    id: 'salesChart',
-                    title: 'Sales Forecasting',
-                    data: {
-                        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
-                        datasets: [{
-                            label: 'Sales',
-                            data: [1200, 1900, 3000, 2500, 4000],
-                            backgroundColor: 'rgba(59, 130, 246, 0.5)',
-                            borderColor: 'rgba(59, 130, 246, 1)',
-                            borderWidth: 1
-                        }]
+            const chartOptions = {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { 
+                        display: false 
+                    },
+                    title: { 
+                        display: false 
                     }
                 },
-                {
-                    id: 'segmentationChart',
-                    title: 'Customer Segmentation',
-                    data: {
-                        labels: ['Group A', 'Group B', 'Group C', 'Group D'],
-                        datasets: [{
-                            label: 'Customers',
-                            data: [300, 500, 200, 400],
-                            backgroundColor: 'rgba(236, 72, 153, 0.5)',
-                            borderColor: 'rgba(236, 72, 153, 1)',
-                            borderWidth: 1
-                        }]
+                scales: {
+                    y: { 
+                        beginAtZero: true,
+                        display: false
+                    },
+                    x: {
+                        display: false
                     }
                 },
-                {
-                    id: 'healthChart',
-                    title: 'Healthcare Outcomes',
-                    data: {
-                        labels: ['Q1', 'Q2', 'Q3', 'Q4'],
-                        datasets: [{
-                            label: 'Accuracy',
-                            data: [85, 88, 90, 87],
-                            backgroundColor: 'rgba(16, 185, 129, 0.5)',
-                            borderColor: 'rgba(16, 185, 129, 1)',
-                            borderWidth: 1
-                        }]
+                elements: {
+                    bar: {
+                        borderRadius: 4
                     }
                 }
-            ];
+            };
 
-            charts.forEach(chart => {
-                new Chart(document.getElementById(chart.id), {
-                    type: 'bar',
-                    data: chart.data,
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        scales: {
-                            y: { beginAtZero: true }
-                        },
-                        plugins: {
-                            legend: { display: true },
-                            title: { display: true, text: chart.title }
-                        },
-                        plugins: {
-                            legend: {
-                                labels: {
-                                    font: {
-                                        size: window.innerWidth < 400 ? 10 : 14
-                                    }
-                                }
-                            }
-                        }
-                    }
-                });
+            // Sales Chart
+            new Chart(document.getElementById('salesChart'), {
+                type: 'bar',
+                data: {
+                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                    datasets: [{
+                        label: 'Revenue Growth',
+                        data: [1200, 1500, 1800, 2100, 2800, 3200],
+                        backgroundColor: 'rgba(59, 130, 246, 0.8)',
+                        borderColor: 'rgba(59, 130, 246, 1)',
+                        borderWidth: 2
+                    }]
+                },
+                options: chartOptions
             });
+
+            // Segmentation Chart
+            new Chart(document.getElementById('segmentationChart'), {
+                type: 'doughnut',
+                data: {
+                    labels: ['Premium', 'Regular', 'Budget', 'Enterprise'],
+                    datasets: [{
+                        data: [30, 40, 20, 10],
+                        backgroundColor: [
+                            'rgba(147, 51, 234, 0.8)',
+                            'rgba(236, 72, 153, 0.8)',
+                            'rgba(245, 158, 11, 0.8)',
+                            'rgba(16, 185, 129, 0.8)'
+                        ],
+                        borderWidth: 2,
+                        borderColor: '#fff'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false }
+                    }
+                }
+            });
+
+            // Health Chart
+            new Chart(document.getElementById('healthChart'), {
+                type: 'line',
+                data: {
+                    labels: ['Q1', 'Q2', 'Q3', 'Q4'],
+                    datasets: [{
+                        label: 'Accuracy %',
+                        data: [82, 85, 88, 90],
+                        backgroundColor: 'rgba(16, 185, 129, 0.2)',
+                        borderColor: 'rgba(16, 185, 129, 1)',
+                        borderWidth: 3,
+                        fill: true,
+                        tension: 0.4
+                    }]
+                },
+                options: chartOptions
+            });
+        });
+
+        // Form enhancements
+        document.querySelector('form').addEventListener('submit', function(e) {
+            const button = this.querySelector('button[type="submit"]');
+            button.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Sending...';
+            button.disabled = true;
         });
     </script>
 </body>
