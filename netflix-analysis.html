@@ -3,194 +3,724 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Netflix Audience Analysis | Your Portfolio</title>
-    <!-- Link to your existing CSS -->
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Netflix Audience Statistical Analysis | STEM Writers Kenya</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        /* Netflix-specific styles that won't conflict with your main CSS */
-        .netflix-red { color: #E50914; }
-        .netflix-bg { background-color: #E50914; }
-        .stat-box {
-            background: #f8f9fa;
-            padding: 20px;
-            border-radius: 8px;
-            margin: 20px 0;
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .navbar {
+            transition: all 0.3s ease;
+        }
+        .navbar.scrolled {
+            background-color: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .analysis-section {
+            background: linear-gradient(135deg, #f9f9f9 0%, #ffffff 100%);
             border-left: 4px solid #E50914;
         }
-        .analysis-table {
+        .stat-box {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+        }
+        .stat-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(229, 9, 20, 0.1);
+        }
+        .netflix-red {
+            color: #E50914;
+        }
+        .netflix-bg {
+            background-color: #E50914;
+        }
+        .mobile-menu {
+            display: none;
+        }
+        .mobile-menu.active {
+            display: block;
+        }
+        .hamburger {
+            cursor: pointer;
+        }
+        .hamburger span {
+            display: block;
+            width: 25px;
+            height: 3px;
+            background-color: #374151;
+            margin: 5px 0;
+            transition: 0.3s;
+        }
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(-45deg) translate(-5px, 6px);
+        }
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(45deg) translate(-5px, -6px);
+        }
+        table {
             width: 100%;
             border-collapse: collapse;
             margin: 20px 0;
         }
-        .analysis-table th {
+        table th {
             background-color: #f1f1f1;
             padding: 12px;
             text-align: left;
+            font-weight: 600;
+            border: 1px solid #ddd;
         }
-        .analysis-table td {
+        table td {
             padding: 12px;
-            border-bottom: 1px solid #ddd;
+            border: 1px solid #ddd;
         }
-        .highlight-box {
-            background-color: #fff9e6;
-            padding: 15px;
-            border-radius: 5px;
-            margin: 20px 0;
-            border-left: 4px solid #ffc107;
+        .highlight {
+            background-color: rgba(229, 9, 20, 0.05);
+            border-left: 4px solid #E50914;
+            padding: 20px;
+            border-radius: 0 8px 8px 0;
+        }
+        .methodology-item {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            margin-bottom: 15px;
+        }
+        .methodology-item:hover {
+            box-shadow: 0 4px 12px rgba(229, 9, 20, 0.1);
         }
     </style>
 </head>
-<body>
-    <!-- Your existing header/navigation -->
-    <header>
-        <!-- Your existing header code here -->
-    </header>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="navbar fixed top-0 w-full bg-white z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <a href="index.html" class="text-xl sm:text-2xl font-bold text-blue-600">STEM WRITERS KENYA</a>
+                </div>
+                
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex items-center space-x-6">
+                    <a href="index.html" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium">Home</a>
+                    <a href="index.html#services" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium">Services</a>
+                    <a href="index.html#projects" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium">Case Studies</a>
+                    <a href="index.html#contact" class="bg-blue-600 text-white px-4 py-2 rounded-full font-medium hover:bg-blue-700 transition">Contact</a>
+                </div>
+                
+                <!-- Mobile menu button -->
+                <div class="md:hidden">
+                    <div class="hamburger" id="hamburger">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Mobile Navigation Menu -->
+            <div class="mobile-menu md:hidden" id="mobileMenu">
+                <div class="px-2 pt-2 pb-3 space-y-1 bg-white border-t">
+                    <a href="index.html" class="block text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-base font-medium">Home</a>
+                    <a href="index.html#services" class="block text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-base font-medium">Services</a>
+                    <a href="index.html#projects" class="block text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-base font-medium">Case Studies</a>
+                    <a href="index.html#contact" class="block text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-base font-medium">Contact</a>
+                </div>
+            </div>
+        </div>
+    </nav>
 
-    <main class="project-detail-container">
-        <!-- Back to projects link -->
-        <div class="back-to-projects">
-            <a href="projects.html" class="back-link">
-                <i class="fas fa-arrow-left"></i> Back to Projects
+    <!-- Hero Section -->
+    <section class="min-h-[60vh] flex items-center justify-center bg-cover bg-center bg-no-repeat pt-16" style="background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.9)), url('https://images.unsplash.com/photo-1536440136628-849c177e76a1?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');">
+        <div class="text-center max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="mb-6">
+                <span class="inline-block bg-white bg-opacity-20 text-white px-4 py-2 rounded-full text-sm font-medium backdrop-blur-sm">
+                    📊 Data Analytics Case Study
+                </span>
+            </div>
+            <h1 class="text-4xl md:text-5xl font-bold mb-6 text-white">
+                Netflix Audience Statistical Analysis
+            </h1>
+            <p class="text-xl mb-8 max-w-4xl mx-auto text-gray-100">
+                Comprehensive statistical analysis of Netflix viewer data to inform strategic content decisions and optimize audience engagement
+            </p>
+            <div class="flex flex-wrap justify-center gap-4 mb-8">
+                <div class="bg-red-600 text-white px-4 py-2 rounded-full text-sm font-medium">
+                    <i class="fas fa-calendar mr-2"></i>Completed: December 2023
+                </div>
+                <div class="bg-gray-800 text-white px-4 py-2 rounded-full text-sm font-medium">
+                    <i class="fas fa-database mr-2"></i>Sample Size: 179 Viewers
+                </div>
+                <div class="bg-gray-800 text-white px-4 py-2 rounded-full text-sm font-medium">
+                    <i class="fas fa-tools mr-2"></i>Tools: SPSS, Excel, Chart.js
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <!-- Back button -->
+        <div class="mb-8">
+            <a href="index.html#projects" class="text-blue-600 hover:text-blue-800 font-medium flex items-center">
+                <i class="fas fa-arrow-left mr-2"></i> Back to All Projects
             </a>
         </div>
 
-        <!-- Project Hero Section -->
-        <section class="project-hero" style="background: linear-gradient(135deg, #E50914 0%, #B81D24 100%); color: white; padding: 60px 20px; text-align: center;">
-            <h1>Netflix Audience Statistical Analysis</h1>
-            <p class="project-subtitle">Data-driven insights for content strategy optimization</p>
-            <div class="project-meta">
-                <span class="meta-item"><i class="fas fa-calendar"></i> Completed: December 2023</span>
-                <span class="meta-item"><i class="fas fa-tags"></i> Data Analysis, Statistics, SPSS</span>
-                <span class="meta-item"><i class="fas fa-chart-line"></i> Statistical Research</span>
-            </div>
-        </section>
-
         <!-- Project Overview -->
-        <section class="project-section">
-            <h2>Project Overview</h2>
-            <p>This comprehensive statistical analysis examines Netflix audience data to inform strategic decisions for content releases. Using SPSS and various statistical methods, the study provides insights into viewer preferences, satisfaction levels, and optimal content strategies.</p>
-            
-            <div class="key-findings">
-                <h3>Key Findings</h3>
-                <div class="stats-grid">
-                    <div class="stat-card">
-                        <div class="stat-number netflix-red">40.8%</div>
-                        <div class="stat-label">Viewers Prefer Action Genre</div>
+        <section class="analysis-section p-8 rounded-xl mb-12">
+            <h2 class="text-3xl font-bold mb-6 netflix-red">Project Overview</h2>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div>
+                    <p class="text-gray-700 mb-6">
+                        This comprehensive statistical analysis examines Netflix audience data to inform strategic decisions for content releases. 
+                        As competition escalates in the streaming sector, data-driven decision-making has become crucial for enhancing audience 
+                        engagement, pinpointing successful genres, and refining market strategy.
+                    </p>
+                    <p class="text-gray-700 mb-6">
+                        The study employs multiple quantitative approaches including descriptive statistics, probability calculations, 
+                        hypothesis testing, and decision-tree modeling to elucidate patterns in viewer happiness, demographic inclinations, 
+                        and anticipated business results.
+                    </p>
+                    <div class="highlight mb-6">
+                        <h3 class="font-bold text-lg mb-3 netflix-red">Key Business Impact</h3>
+                        <p class="text-gray-700">Identified optimal content strategy with <span class="font-bold">$85,000 Expected Monetary Value</span>, 
+                        revealing that delaying launch for additional research maximizes returns compared to immediate launch alternatives.</p>
                     </div>
-                    <div class="stat-card">
-                        <div class="stat-number netflix-red">61.9%</div>
-                        <div class="stat-label">26-35 Year Olds Prefer Action</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number netflix-red">23.23%</div>
-                        <div class="stat-label">Females with Satisfaction ≥8</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number netflix-red">$85,000</div>
-                        <div class="stat-label">Optimal EMV Strategy</div>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-lg">
+                    <h3 class="text-xl font-bold mb-4 netflix-red">Project Highlights</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-start">
+                            <div class="bg-red-100 p-2 rounded-full mr-4">
+                                <i class="fas fa-chart-line text-red-600"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold">Action Genre Dominance</h4>
+                                <p class="text-gray-600 text-sm">40.8% of viewers prefer Action content</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="bg-red-100 p-2 rounded-full mr-4">
+                                <i class="fas fa-users text-red-600"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold">Target Demographic</h4>
+                                <p class="text-gray-600 text-sm">61.9% of 26-35 year olds prefer Action genre</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="bg-red-100 p-2 rounded-full mr-4">
+                                <i class="fas fa-check-circle text-red-600"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold">High Satisfaction</h4>
+                                <p class="text-gray-600 text-sm">23.23% of females report satisfaction ≥8</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="bg-red-100 p-2 rounded-full mr-4">
+                                <i class="fas fa-lightbulb text-red-600"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold">Optimal Strategy</h4>
+                                <p class="text-gray-600 text-sm">Delay + Research delivers $85,000 EMV</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- Methodology -->
-        <section class="project-section">
-            <h2>Methodology</h2>
-            <ul>
-                <li>Descriptive Statistics for central tendency and variability analysis</li>
-                <li>Hypothesis Testing (Chi-square and t-tests)</li>
-                <li>Probability Analysis (joint and conditional probabilities)</li>
-                <li>Decision Tree and Expected Monetary Value (EMV) Calculation</li>
-                <li>Pearson Correlation Analysis</li>
-                <li>Qualitative Interpretation of quantitative findings</li>
-            </ul>
+        <section class="mb-12">
+            <h2 class="text-3xl font-bold mb-8 netflix-red">Methodology</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="methodology-item">
+                    <div class="bg-blue-100 p-3 rounded-full w-12 h-12 mb-4 flex items-center justify-center">
+                        <i class="fas fa-chart-bar text-blue-600"></i>
+                    </div>
+                    <h3 class="text-lg font-bold mb-3">Descriptive Statistics</h3>
+                    <p class="text-gray-600">Analyzed central tendency and variability of satisfaction ratings and weekly viewing hours.</p>
+                </div>
+                <div class="methodology-item">
+                    <div class="bg-purple-100 p-3 rounded-full w-12 h-12 mb-4 flex items-center justify-center">
+                        <i class="fas fa-hypothesis text-purple-600"></i>
+                    </div>
+                    <h3 class="text-lg font-bold mb-3">Hypothesis Testing</h3>
+                    <p class="text-gray-600">Chi-square and t-tests to evaluate correlations between demographic data and viewer experiences.</p>
+                </div>
+                <div class="methodology-item">
+                    <div class="bg-green-100 p-3 rounded-full w-12 h-12 mb-4 flex items-center justify-center">
+                        <i class="fas fa-percentage text-green-600"></i>
+                    </div>
+                    <h3 class="text-lg font-bold mb-3">Probability Analysis</h3>
+                    <p class="text-gray-600">Joint and conditional probabilities to highlight demographic-genre combinations.</p>
+                </div>
+                <div class="methodology-item">
+                    <div class="bg-yellow-100 p-3 rounded-full w-12 h-12 mb-4 flex items-center justify-center">
+                        <i class="fas fa-project-diagram text-yellow-600"></i>
+                    </div>
+                    <h3 class="text-lg font-bold mb-3">Decision Tree Analysis</h3>
+                    <p class="text-gray-600">Expected Monetary Value calculation to evaluate strategic choices.</p>
+                </div>
+                <div class="methodology-item">
+                    <div class="bg-red-100 p-3 rounded-full w-12 h-12 mb-4 flex items-center justify-center">
+                        <i class="fas fa-link text-red-600"></i>
+                    </div>
+                    <h3 class="text-lg font-bold mb-3">Correlation Analysis</h3>
+                    <p class="text-gray-600">Pearson correlation to examine relationships between variables.</p>
+                </div>
+                <div class="methodology-item">
+                    <div class="bg-indigo-100 p-3 rounded-full w-12 h-12 mb-4 flex items-center justify-center">
+                        <i class="fas fa-comment-alt text-indigo-600"></i>
+                    </div>
+                    <h3 class="text-lg font-bold mb-3">Qualitative Analysis</h3>
+                    <p class="text-gray-600">Interpretative insights to complement quantitative findings.</p>
+                </div>
+            </div>
         </section>
 
-        <!-- Key Results -->
-        <section class="project-section">
-            <h2>Key Results</h2>
+        <!-- Key Findings -->
+        <section class="mb-12">
+            <h2 class="text-3xl font-bold mb-8 netflix-red">Key Findings & Analysis</h2>
             
-            <div class="stat-box">
-                <h3>Descriptive Statistics</h3>
-                <table class="analysis-table">
-                    <tr>
-                        <th>Metric</th>
-                        <th>Satisfaction</th>
-                        <th>Viewing Hours</th>
-                    </tr>
-                    <tr>
-                        <td>Mean</td>
-                        <td>6.905</td>
-                        <td>5.029</td>
-                    </tr>
-                    <tr>
-                        <td>Standard Deviation</td>
-                        <td>1.519</td>
-                        <td>2.015</td>
-                    </tr>
-                    <tr>
-                        <td>Range</td>
-                        <td>6.7</td>
-                        <td>9.8</td>
-                    </tr>
+            <!-- Descriptive Statistics -->
+            <div class="stat-box p-6 mb-8">
+                <h3 class="text-2xl font-bold mb-6 flex items-center">
+                    <i class="fas fa-chart-area mr-3 text-red-600"></i>
+                    Descriptive Statistics
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h4 class="font-bold mb-4 text-lg">Satisfaction Scores</h4>
+                        <table>
+                            <tr>
+                                <th>Statistic</th>
+                                <th>Value</th>
+                            </tr>
+                            <tr>
+                                <td>Mean</td>
+                                <td>6.905</td>
+                            </tr>
+                            <tr>
+                                <td>Std. Deviation</td>
+                                <td>1.5191</td>
+                            </tr>
+                            <tr>
+                                <td>Minimum</td>
+                                <td>3.3</td>
+                            </tr>
+                            <tr>
+                                <td>Maximum</td>
+                                <td>10.0</td>
+                            </tr>
+                            <tr>
+                                <td>Range</td>
+                                <td>6.7</td>
+                            </tr>
+                            <tr>
+                                <td>Skewness</td>
+                                <td>0.011</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div>
+                        <h4 class="font-bold mb-4 text-lg">Viewing Hours</h4>
+                        <table>
+                            <tr>
+                                <th>Statistic</th>
+                                <th>Value</th>
+                            </tr>
+                            <tr>
+                                <td>Mean</td>
+                                <td>5.029</td>
+                            </tr>
+                            <tr>
+                                <td>Std. Deviation</td>
+                                <td>2.0151</td>
+                            </tr>
+                            <tr>
+                                <td>Minimum</td>
+                                <td>0.5</td>
+                            </tr>
+                            <tr>
+                                <td>Maximum</td>
+                                <td>10.3</td>
+                            </tr>
+                            <tr>
+                                <td>Range</td>
+                                <td>9.8</td>
+                            </tr>
+                            <tr>
+                                <td>Skewness</td>
+                                <td>0.156</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="mt-6 p-4 bg-gray-50 rounded-lg">
+                    <p class="text-gray-700">
+                        <strong>Insight:</strong> Viewers generally rate satisfaction above average (mean = 6.91/10) with a standard deviation of 1.52, 
+                        indicating moderate variability. Viewing hours average 5.03 per week with higher dispersion (SD = 2.02), 
+                        suggesting diverse viewing habits.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Probability Analysis -->
+            <div class="stat-box p-6 mb-8">
+                <h3 class="text-2xl font-bold mb-6 flex items-center">
+                    <i class="fas fa-percentage mr-3 text-red-600"></i>
+                    Probability Analysis
+                </h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Probability Type</th>
+                            <th>Calculation</th>
+                            <th>Probability</th>
+                            <th>Percentage</th>
+                            <th>Interpretation</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>P(Under 25 AND Action)</td>
+                            <td>35/179</td>
+                            <td>0.1955</td>
+                            <td>19.55%</td>
+                            <td>Young viewers strongly prefer Action</td>
+                        </tr>
+                        <tr>
+                            <td>P(Female AND Thriller)</td>
+                            <td>26/179</td>
+                            <td>0.1453</td>
+                            <td>14.53%</td>
+                            <td>Moderate female interest in Thriller</td>
+                        </tr>
+                        <tr>
+                            <td>P(Action | Age 26-35)</td>
+                            <td>26/42</td>
+                            <td>0.6190</td>
+                            <td>61.9%</td>
+                            <td>Strong Action preference in 26-35 age group</td>
+                        </tr>
+                        <tr>
+                            <td>P(Satisfaction≥8 | Female)</td>
+                            <td>23/99</td>
+                            <td>0.2323</td>
+                            <td>23.23%</td>
+                            <td>Moderate high satisfaction among females</td>
+                        </tr>
+                    </tbody>
                 </table>
             </div>
 
-            <div class="stat-box">
-                <h3>Probability Analysis</h3>
-                <table class="analysis-table">
-                    <tr>
-                        <th>Probability Type</th>
-                        <th>Value</th>
-                        <th>Percentage</th>
-                    </tr>
-                    <tr>
-                        <td>P(Under 25 AND Action)</td>
-                        <td>0.1955</td>
-                        <td>19.55%</td>
-                    </tr>
-                    <tr>
-                        <td>P(Female AND Thriller)</td>
-                        <td>0.1453</td>
-                        <td>14.53%</td>
-                    </tr>
-                    <tr>
-                        <td>P(Action | Age 26-35)</td>
-                        <td>0.6190</td>
-                        <td>61.9%</td>
-                    </tr>
-                </table>
+            <!-- Hypothesis Testing Results -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+                <div class="stat-box p-6">
+                    <h3 class="text-xl font-bold mb-4 flex items-center">
+                        <i class="fas fa-square-root-alt mr-3 text-red-600"></i>
+                        Chi-Square Test: Gender vs Preferred Genre
+                    </h3>
+                    <div class="mb-4">
+                        <div class="flex justify-between mb-2">
+                            <span class="font-medium">H₀ (Null):</span>
+                            <span class="text-gray-600">No association between gender and preferred genre</span>
+                        </div>
+                        <div class="flex justify-between mb-4">
+                            <span class="font-medium">H₁ (Alternative):</span>
+                            <span class="text-gray-600">Association exists between gender and preferred genre</span>
+                        </div>
+                    </div>
+                    <table class="mb-4">
+                        <tr>
+                            <th>Statistic</th>
+                            <th>Value</th>
+                        </tr>
+                        <tr>
+                            <td>Chi-Square</td>
+                            <td>189.2431</td>
+                        </tr>
+                        <tr>
+                            <td>Degrees of Freedom</td>
+                            <td>12</td>
+                        </tr>
+                        <tr>
+                            <td>P-Value</td>
+                            <td>0.000</td>
+                        </tr>
+                    </table>
+                    <div class="bg-red-50 p-4 rounded-lg">
+                        <p class="text-red-700 font-bold">
+                            <i class="fas fa-times-circle mr-2"></i>
+                            Reject H₀: Significant association found between gender and genre preference
+                        </p>
+                    </div>
+                </div>
+
+                <div class="stat-box p-6">
+                    <h3 class="text-xl font-bold mb-4 flex items-center">
+                        <i class="fas fa-balance-scale mr-3 text-red-600"></i>
+                        T-Test: Satisfaction by Gender
+                    </h3>
+                    <div class="mb-4">
+                        <div class="flex justify-between mb-2">
+                            <span class="font-medium">H₀ (Null):</span>
+                            <span class="text-gray-600">Mean satisfaction scores for males and females are equal</span>
+                        </div>
+                        <div class="flex justify-between mb-4">
+                            <span class="font-medium">H₁ (Alternative):</span>
+                            <span class="text-gray-600">Mean satisfaction scores differ between genders</span>
+                        </div>
+                    </div>
+                    <table class="mb-4">
+                        <tr>
+                            <th>Statistic</th>
+                            <th>Value</th>
+                        </tr>
+                        <tr>
+                            <td>T-Value</td>
+                            <td>-0.2348</td>
+                        </tr>
+                        <tr>
+                            <td>Degrees of Freedom</td>
+                            <td>164.38</td>
+                        </tr>
+                        <tr>
+                            <td>P-Value</td>
+                            <td>0.8147</td>
+                        </tr>
+                        <tr>
+                            <td>Mean (Female)</td>
+                            <td>6.955</td>
+                        </tr>
+                        <tr>
+                            <td>Mean (Male)</td>
+                            <td>7.01</td>
+                        </tr>
+                    </table>
+                    <div class="bg-green-50 p-4 rounded-lg">
+                        <p class="text-green-700 font-bold">
+                            <i class="fas fa-check-circle mr-2"></i>
+                            Fail to reject H₀: No significant difference in satisfaction by gender
+                        </p>
+                    </div>
+                </div>
             </div>
 
-            <div class="highlight-box">
-                <h4>Strategic Recommendation</h4>
-                <p><strong>Optimal Strategy:</strong> Delay launch and conduct additional audience research</p>
-                <p><strong>Expected Monetary Value:</strong> $85,000 (vs. $62,000 for immediate launch)</p>
-                <p><strong>Target Content:</strong> Action genre programming for 26-35 age demographic</p>
+            <!-- Decision Tree Analysis -->
+            <div class="stat-box p-6 mb-8">
+                <h3 class="text-2xl font-bold mb-6 flex items-center">
+                    <i class="fas fa-project-diagram mr-3 text-red-600"></i>
+                    Decision Tree & Expected Monetary Value (EMV) Analysis
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+                    <div class="bg-gray-50 p-6 rounded-lg text-center">
+                        <div class="text-3xl font-bold mb-2 text-gray-600">Strategy 1</div>
+                        <h4 class="font-bold text-lg mb-3">Launch Now</h4>
+                        <div class="text-2xl font-bold text-gray-700 mb-2">$62,000 EMV</div>
+                        <p class="text-sm text-gray-600 mb-3">60% chance: $100,000 return<br>40% chance: $20,000 return</p>
+                    </div>
+                    <div class="bg-red-50 p-6 rounded-lg text-center border-2 border-red-200">
+                        <div class="text-3xl font-bold mb-2 text-red-600">Strategy 2</div>
+                        <h4 class="font-bold text-lg mb-3">Delay + Research</h4>
+                        <div class="text-2xl font-bold text-red-600 mb-2">$85,000 EMV</div>
+                        <p class="text-sm text-gray-600 mb-3">70% chance: $120,000 return<br>30% chance: $10,000 return<br>($5,000 research cost)</p>
+                        <div class="inline-block bg-red-100 text-red-800 px-3 py-1 rounded-full text-xs font-bold">OPTIMAL STRATEGY</div>
+                    </div>
+                    <div class="bg-gray-50 p-6 rounded-lg text-center">
+                        <div class="text-3xl font-bold mb-2 text-gray-600">Strategy 3</div>
+                        <h4 class="font-bold text-lg mb-3">No Launch</h4>
+                        <div class="text-2xl font-bold text-gray-700 mb-2">$0 EMV</div>
+                        <p class="text-sm text-gray-600 mb-3">No financial benefit or loss<br>Minimal risk strategy</p>
+                    </div>
+                </div>
+                <div class="bg-yellow-50 p-4 rounded-lg">
+                    <p class="text-gray-700">
+                        <strong>Recommendation:</strong> The optimal strategy is to <strong>delay the launch while performing extra research</strong>, 
+                        as this choice maximizes expected returns at $85,000 EMV compared to $62,000 for immediate launch.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Correlation Analysis -->
+            <div class="stat-box p-6">
+                <h3 class="text-2xl font-bold mb-6 flex items-center">
+                    <i class="fas fa-link mr-3 text-red-600"></i>
+                    Correlation Analysis
+                </h3>
+                <div class="text-center mb-6">
+                    <div class="inline-block bg-gray-100 p-6 rounded-lg">
+                        <div class="text-5xl font-bold text-red-600 mb-2">0.118</div>
+                        <div class="text-lg font-medium">Pearson Correlation Coefficient</div>
+                        <div class="text-gray-600">Satisfaction × Viewing Hours</div>
+                    </div>
+                </div>
+                <div class="bg-blue-50 p-4 rounded-lg">
+                    <p class="text-gray-700">
+                        <strong>Interpretation:</strong> A weak positive correlation (r = 0.118, p = 0.12) exists between viewing hours and satisfaction scores. 
+                        This indicates that more viewing hours are only minimally associated with higher satisfaction, 
+                        suggesting other factors may play a more significant role in viewer satisfaction.
+                    </p>
+                </div>
             </div>
         </section>
 
-        <!-- Download/View Options -->
-        <section class="project-section">
-            <h2>Project Materials</h2>
-            <div class="project-actions">
-                <a href="netflix-analysis-full.html" class="btn btn-primary netflix-bg">
-                    <i class="fas fa-file-pdf"></i> View Full Analysis Report
+        <!-- Recommendations -->
+        <section class="analysis-section p-8 rounded-xl mb-12">
+            <h2 class="text-3xl font-bold mb-6 netflix-red">Strategic Recommendations</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Content Strategy Recommendations</h3>
+                    <ol class="space-y-4">
+                        <li class="flex items-start">
+                            <span class="bg-red-600 text-white rounded-full w-6 h-6 flex items-center justify-center mr-3 flex-shrink-0">1</span>
+                            <span><strong>Prioritize Action Genre:</strong> Focus on Action content (40.8% preference) as primary programming strategy</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="bg-red-600 text-white rounded-full w-6 h-6 flex items-center justify-center mr-3 flex-shrink-0">2</span>
+                            <span><strong>Target 26-35 Age Group:</strong> Develop Action content specifically for the 26-35 demographic (61.9% preference)</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="bg-red-600 text-white rounded-full w-6 h-6 flex items-center justify-center mr-3 flex-shrink-0">3</span>
+                            <span><strong>Quality Over Quantity:</strong> Focus on high-quality content rather than increasing viewing hours</span>
+                        </li>
+                    </ol>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Business Strategy Recommendations</h3>
+                    <ol class="space-y-4">
+                        <li class="flex items-start">
+                            <span class="bg-red-600 text-white rounded-full w-6 h-6 flex items-center justify-center mr-3 flex-shrink-0">1</span>
+                            <span><strong>Delay Launch for Research:</strong> Implement Strategy 2 (Delay + Research) with $85,000 EMV</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="bg-red-600 text-white rounded-full w-6 h-6 flex items-center justify-center mr-3 flex-shrink-0">2</span>
+                            <span><strong>Conduct Audience Research:</strong> Invest $5,000 in additional audience preference studies</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="bg-red-600 text-white rounded-full w-6 h-6 flex items-center justify-center mr-3 flex-shrink-0">3</span>
+                            <span><strong>Monitor Gender Preferences:</strong> While satisfaction is equal, genre preferences differ significantly by gender</span>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </section>
+
+        <!-- Project Files & Contact -->
+        <section class="bg-white p-8 rounded-xl shadow-lg mb-8">
+            <h2 class="text-2xl font-bold mb-6 text-center">Project Resources</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <a href="#" class="block bg-gray-50 hover:bg-gray-100 p-6 rounded-lg text-center transition">
+                    <div class="text-3xl mb-4 text-red-600">
+                        <i class="fas fa-file-pdf"></i>
+                    </div>
+                    <h3 class="font-bold mb-2">Full Report PDF</h3>
+                    <p class="text-sm text-gray-600">Download complete analysis with detailed methodology</p>
                 </a>
-                <a href="data/netflix-dataset.csv" class="btn btn-secondary">
-                    <i class="fas fa-database"></i> Download Dataset
+                <a href="#" class="block bg-gray-50 hover:bg-gray-100 p-6 rounded-lg text-center transition">
+                    <div class="text-3xl mb-4 text-red-600">
+                        <i class="fas fa-database"></i>
+                    </div>
+                    <h3 class="font-bold mb-2">Dataset & SPSS Files</h3>
+                    <p class="text-sm text-gray-600">Raw data and SPSS analysis files for replication</p>
                 </a>
-                <a href="https://github.com/yourusername/portfolio/tree/main/netflix-analysis" class="btn btn-secondary">
-                    <i class="fab fa-github"></i> View Code on GitHub
+                <a href="index.html#contact" class="block bg-red-600 hover:bg-red-700 text-white p-6 rounded-lg text-center transition">
+                    <div class="text-3xl mb-4">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <h3 class="font-bold mb-2">Request Similar Analysis</h3>
+                    <p class="text-sm text-red-100">Contact us for custom statistical analysis</p>
                 </a>
             </div>
         </section>
     </main>
 
-    <!-- Your existing footer -->
-    <footer>
-        <!-- Your existing footer code here -->
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4">STEM Writers Kenya</h3>
+                    <p class="text-gray-400 mb-4">Transforming data into business success through expert analytics, training, and insights.</p>
+                    <div class="social-icons flex space-x-4">
+                        <a href="https://linkedin.com/in/vincent-ngeno-datascientist" target="_blank" aria-label="LinkedIn" class="hover:text-blue-400">
+                            <i class="fab fa-linkedin text-xl"></i>
+                        </a>
+                        <a href="https://github.com/datasleak" target="_blank" aria-label="GitHub" class="hover:text-gray-400">
+                            <i class="fab fa-github text-xl"></i>
+                        </a>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Services</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="index.html#services" class="hover:text-white transition">Business Analytics</a></li>
+                        <li><a href="index.html#services" class="hover:text-white transition">Statistical Analysis</a></li>
+                        <li><a href="index.html#services" class="hover:text-white transition">Training & Mentorship</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Contact</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><i class="fas fa-envelope mr-2"></i> certifiedstemwriters@gmail.com</li>
+                        <li><i class="fab fa-whatsapp mr-2"></i> +254722907130</li>
+                        <li><i class="fas fa-map-marker-alt mr-2"></i> Nairobi, Kenya</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 pt-8 text-center">
+                <p class="text-gray-400">&copy; 2025 STEM Writers Kenya. All rights reserved.</p>
+            </div>
+        </div>
     </footer>
+
+    <script>
+        // Mobile menu toggle
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+        });
+
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('#mobileMenu a').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                mobileMenu.classList.remove('active');
+            });
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Add click effects to methodology items
+        document.querySelectorAll('.methodology-item').forEach(item => {
+            item.addEventListener('click', () => {
+                item.style.transform = 'scale(1.02)';
+                setTimeout(() => {
+                    item.style.transform = 'scale(1)';
+                }, 150);
+            });
+        });
+    </script>
 </body>
 </html>
