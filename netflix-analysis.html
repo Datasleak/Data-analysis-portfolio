@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Netflix Audience Analysis | Your Portfolio</title>
+    <!-- Link to your existing CSS -->
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Netflix-specific styles that won't conflict with your main CSS */
+        .netflix-red { color: #E50914; }
+        .netflix-bg { background-color: #E50914; }
+        .stat-box {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 4px solid #E50914;
+        }
+        .analysis-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        .analysis-table th {
+            background-color: #f1f1f1;
+            padding: 12px;
+            text-align: left;
+        }
+        .analysis-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        .highlight-box {
+            background-color: #fff9e6;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+            border-left: 4px solid #ffc107;
+        }
+    </style>
+</head>
+<body>
+    <!-- Your existing header/navigation -->
+    <header>
+        <!-- Your existing header code here -->
+    </header>
+
+    <main class="project-detail-container">
+        <!-- Back to projects link -->
+        <div class="back-to-projects">
+            <a href="projects.html" class="back-link">
+                <i class="fas fa-arrow-left"></i> Back to Projects
+            </a>
+        </div>
+
+        <!-- Project Hero Section -->
+        <section class="project-hero" style="background: linear-gradient(135deg, #E50914 0%, #B81D24 100%); color: white; padding: 60px 20px; text-align: center;">
+            <h1>Netflix Audience Statistical Analysis</h1>
+            <p class="project-subtitle">Data-driven insights for content strategy optimization</p>
+            <div class="project-meta">
+                <span class="meta-item"><i class="fas fa-calendar"></i> Completed: December 2023</span>
+                <span class="meta-item"><i class="fas fa-tags"></i> Data Analysis, Statistics, SPSS</span>
+                <span class="meta-item"><i class="fas fa-chart-line"></i> Statistical Research</span>
+            </div>
+        </section>
+
+        <!-- Project Overview -->
+        <section class="project-section">
+            <h2>Project Overview</h2>
+            <p>This comprehensive statistical analysis examines Netflix audience data to inform strategic decisions for content releases. Using SPSS and various statistical methods, the study provides insights into viewer preferences, satisfaction levels, and optimal content strategies.</p>
+            
+            <div class="key-findings">
+                <h3>Key Findings</h3>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-number netflix-red">40.8%</div>
+                        <div class="stat-label">Viewers Prefer Action Genre</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number netflix-red">61.9%</div>
+                        <div class="stat-label">26-35 Year Olds Prefer Action</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number netflix-red">23.23%</div>
+                        <div class="stat-label">Females with Satisfaction ≥8</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number netflix-red">$85,000</div>
+                        <div class="stat-label">Optimal EMV Strategy</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Methodology -->
+        <section class="project-section">
+            <h2>Methodology</h2>
+            <ul>
+                <li>Descriptive Statistics for central tendency and variability analysis</li>
+                <li>Hypothesis Testing (Chi-square and t-tests)</li>
+                <li>Probability Analysis (joint and conditional probabilities)</li>
+                <li>Decision Tree and Expected Monetary Value (EMV) Calculation</li>
+                <li>Pearson Correlation Analysis</li>
+                <li>Qualitative Interpretation of quantitative findings</li>
+            </ul>
+        </section>
+
+        <!-- Key Results -->
+        <section class="project-section">
+            <h2>Key Results</h2>
+            
+            <div class="stat-box">
+                <h3>Descriptive Statistics</h3>
+                <table class="analysis-table">
+                    <tr>
+                        <th>Metric</th>
+                        <th>Satisfaction</th>
+                        <th>Viewing Hours</th>
+                    </tr>
+                    <tr>
+                        <td>Mean</td>
+                        <td>6.905</td>
+                        <td>5.029</td>
+                    </tr>
+                    <tr>
+                        <td>Standard Deviation</td>
+                        <td>1.519</td>
+                        <td>2.015</td>
+                    </tr>
+                    <tr>
+                        <td>Range</td>
+                        <td>6.7</td>
+                        <td>9.8</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="stat-box">
+                <h3>Probability Analysis</h3>
+                <table class="analysis-table">
+                    <tr>
+                        <th>Probability Type</th>
+                        <th>Value</th>
+                        <th>Percentage</th>
+                    </tr>
+                    <tr>
+                        <td>P(Under 25 AND Action)</td>
+                        <td>0.1955</td>
+                        <td>19.55%</td>
+                    </tr>
+                    <tr>
+                        <td>P(Female AND Thriller)</td>
+                        <td>0.1453</td>
+                        <td>14.53%</td>
+                    </tr>
+                    <tr>
+                        <td>P(Action | Age 26-35)</td>
+                        <td>0.6190</td>
+                        <td>61.9%</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="highlight-box">
+                <h4>Strategic Recommendation</h4>
+                <p><strong>Optimal Strategy:</strong> Delay launch and conduct additional audience research</p>
+                <p><strong>Expected Monetary Value:</strong> $85,000 (vs. $62,000 for immediate launch)</p>
+                <p><strong>Target Content:</strong> Action genre programming for 26-35 age demographic</p>
+            </div>
+        </section>
+
+        <!-- Download/View Options -->
+        <section class="project-section">
+            <h2>Project Materials</h2>
+            <div class="project-actions">
+                <a href="netflix-analysis-full.html" class="btn btn-primary netflix-bg">
+                    <i class="fas fa-file-pdf"></i> View Full Analysis Report
+                </a>
+                <a href="data/netflix-dataset.csv" class="btn btn-secondary">
+                    <i class="fas fa-database"></i> Download Dataset
+                </a>
+                <a href="https://github.com/yourusername/portfolio/tree/main/netflix-analysis" class="btn btn-secondary">
+                    <i class="fab fa-github"></i> View Code on GitHub
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <!-- Your existing footer -->
+    <footer>
+        <!-- Your existing footer code here -->
+    </footer>
+</body>
+</html>
